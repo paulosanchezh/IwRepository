@@ -16,9 +16,9 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.LocalDateToDateConverter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.vaadin.paul.spring.MainView;
 
-
-//@Route(value = "coger-cita", layout = MainView.class)
+@Route(value = "coger-cita", layout = MainView.class)
 @PageTitle("Coger Cita")
 public class FormCogerCita extends VerticalLayout {
 	private ComboBox<String> especialidad = new ComboBox<>("Especialidad", "Traumatólogo", "Medico de cabecera");

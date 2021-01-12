@@ -1,5 +1,6 @@
 package org.vaadin.paul.spring.ui.views;
 
+import org.vaadin.paul.spring.MainView;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.app.security.SecurityUtils;
 import org.vaadin.paul.spring.entities.User;
@@ -11,7 +12,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.router.Route;
 
-@Route("user")
+@Route(value="user", layout=MainView.class)
 @Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class UserView extends FormLayout {
 	UserRepository repo;

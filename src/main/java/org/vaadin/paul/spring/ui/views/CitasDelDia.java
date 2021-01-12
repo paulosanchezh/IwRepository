@@ -3,7 +3,7 @@ package org.vaadin.paul.spring.ui.views;
 import java.awt.Window;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+import org.vaadin.paul.spring.MainView;
 import org.vaadin.paul.spring.entities.Cita;
 import org.vaadin.paul.spring.entities.Informe;
 import org.vaadin.paul.spring.repositories.CitaRepository;
@@ -25,7 +25,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinRequest;
 
-//@Route(value = "citashoy", layout = MainView.class)
+@Route(value = "citashoy", layout=MainView.class)
 @PageTitle("Citas de hoy")
 
 public class CitasDelDia<V> extends VerticalLayout {

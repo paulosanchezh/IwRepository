@@ -14,8 +14,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
-//@Route(value = "citas-pendientes", layout = MainView.class)
+import org.vaadin.paul.spring.MainView;
+@Route(value = "citas-pendientes", layout = MainView.class)
 @PageTitle("Citas Pendientes")
 
 public class CitasPendientes extends VerticalLayout {

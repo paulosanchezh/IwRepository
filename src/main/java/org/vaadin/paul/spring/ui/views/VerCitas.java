@@ -22,8 +22,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.vaadin.paul.spring.MainView;
 
-//@Route(value = "ver-citas", layout = MainView.class)
+@Route(value = "ver-citas", layout = MainView.class)
 @PageTitle("Citas")
 
 public class VerCitas extends VerticalLayout {

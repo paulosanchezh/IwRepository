@@ -1,6 +1,7 @@
 package org.vaadin.paul.spring.ui.views;
 
 import java.time.LocalDate;
+import org.vaadin.paul.spring.MainView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-//@Route(value = "ver-pacientes", layout = MainView.class)
+@Route(value = "ver-pacientes", layout = MainView.class)
 @PageTitle("Pacientes")
 
 public class VerPacientes extends VerticalLayout {
