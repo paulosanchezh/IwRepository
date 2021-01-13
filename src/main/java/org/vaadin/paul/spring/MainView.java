@@ -23,6 +23,8 @@ import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.dom.Element;
+import com.vaadin.flow.dom.ElementFactory;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
@@ -65,6 +67,7 @@ public class MainView extends AppLayout {
     private H1 viewTitle;
     private User user;
     
+    @Autowired
     public MainView() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
@@ -88,6 +91,7 @@ public class MainView extends AppLayout {
 
     private Component createDrawerContent(Tabs menu) {
         VerticalLayout layout = new VerticalLayout();
+        Element logoutLink = ElementFactory.createAnchor("logout", "Logout");
         layout.getThemeList().set("dark", true);
         layout.setSizeFull();
         layout.setPadding(false);
@@ -100,6 +104,8 @@ public class MainView extends AppLayout {
         logoLayout.setSpacing(true);
         logoLayout.add(new Image("icons/logo.png", "Logo"));
         logoLayout.add(new H1("IW"));
+        //logoLayout.add(logoutLink);
+        getElement().appendChild(logoutLink);
         layout.add(logoLayout, menu);
         return layout;
     }
@@ -144,6 +150,7 @@ public class MainView extends AppLayout {
       	        createTab("Citas Pendientes", CitasPendientes.class),
       	        createTab("Informes Pacientes", InformesPacientes.class),
       	        createTab("Ver Pacientes", VerPacientes.class),
+      	        createTab("Estadisticas", PruebaEstadistica.class),
     		};
     	}
         

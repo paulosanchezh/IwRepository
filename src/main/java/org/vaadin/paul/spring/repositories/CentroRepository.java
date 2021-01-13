@@ -20,5 +20,7 @@ public interface CentroRepository extends JpaRepository<Centro, Integer>{
 	List<Centro> findByLocalidad(Localidad Localidad);
 	List<Especialidad> findByNombre(String nombre);
 	List<Trabajador> findByTelefono(String telefono);
+	List<Centro> findAll();
+	
 
 }

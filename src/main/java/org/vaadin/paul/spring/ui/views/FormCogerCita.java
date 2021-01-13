@@ -147,7 +147,7 @@ public class FormCogerCita extends VerticalLayout {
 		for(Trabajador trabajador:trabajadores) {
 			
 			sanitarios.add(reposanitario.findByTrabajador(trabajador));
-			
+		
 		}
 		
 		for(Sanitario sanitario:sanitarios) {

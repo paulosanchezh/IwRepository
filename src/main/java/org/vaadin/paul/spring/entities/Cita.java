@@ -112,4 +112,11 @@ public class Cita {
 	public void setConfirmada(boolean confirmada) {
 		this.confirmada = confirmada;
 	}
+	
+	public String getConfirmadaString() {
+		if (confirmada==true)
+			return "Sí";
+		else 
+			return "No";
+	}
 }
