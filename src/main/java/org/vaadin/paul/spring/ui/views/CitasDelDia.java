@@ -4,11 +4,14 @@ import java.awt.Window;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import org.vaadin.paul.spring.MainView;
+import org.vaadin.paul.spring.app.security.SecurityUtils;
 import org.vaadin.paul.spring.entities.Cita;
 import org.vaadin.paul.spring.entities.Informe;
+import org.vaadin.paul.spring.entities.User;
 import org.vaadin.paul.spring.repositories.CitaRepository;
 import org.vaadin.paul.spring.repositories.InformeRepository;
 import org.vaadin.paul.spring.repositories.SanitarioRepository;
+import org.vaadin.paul.spring.repositories.TrabajadorRepository;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
@@ -33,16 +36,18 @@ public class CitasDelDia<V> extends VerticalLayout {
 	private final CitaRepository repo;
 	private final InformeRepository repoinformes;
 	private final SanitarioRepository reposanitario;
+	private final TrabajadorRepository repotrabajador;
 
-	public CitasDelDia(CitaRepository repo, SanitarioRepository repouser,InformeRepository repoinformes) {
+	public CitasDelDia(CitaRepository repo, SanitarioRepository repouser,InformeRepository repoinformes, TrabajadorRepository repotrabajador) {
 		this.repo = repo;
 		this.reposanitario = repouser;
 		this.repoinformes = repoinformes;
 		this.grid = new Grid<>(); 
+		this.repotrabajador = repotrabajador;
 		
 		grid.setSelectionMode(SelectionMode.SINGLE);
 		  
-		 grid.addColumn(Cita::getNombreyApellidospaciente).setHeader("Nombre y apellidos");
+		 grid.addColumn(Cita::getNombreyApellidospaciente, "Nombre y apellidos").setHeader("Nombre y apellidos");
 		 grid.addColumn(new ComponentRenderer<>(cita -> { 
 			 Grid<Informe> grid2 = new Grid<>();
 			 grid2.addColumn(Informe::getNombreyApellidospaciente).setHeader("Nombre y Apellidos");
@@ -69,8 +74,9 @@ public class CitasDelDia<V> extends VerticalLayout {
 	}
 	
 	private void listCustomers() {
-		LocalDate x = LocalDate.of(2020, 1, 26);
-		grid.setItems(repo.findByFechaCitaAndSanitarioAndConfirmada(x, reposanitario.findById(13), true));
+		LocalDate hoy = LocalDate.now();
+		User u = (User) SecurityUtils.getAuthenticatedUser();
+		grid.setItems(repo.findByFechaCitaAndSanitarioAndConfirmada(hoy, reposanitario.findByTrabajador(repotrabajador.findByUser(u)), true));
 	}
 	
 }

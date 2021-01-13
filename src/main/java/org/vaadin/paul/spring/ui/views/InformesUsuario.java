@@ -1,12 +1,15 @@
 package org.vaadin.paul.spring.ui.views;
 
 import org.vaadin.paul.spring.MainView;
+import org.vaadin.paul.spring.app.security.SecurityUtils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.vaadin.paul.spring.entities.Cita;
 import org.vaadin.paul.spring.entities.Informe;
+import org.vaadin.paul.spring.entities.User;
 import org.vaadin.paul.spring.repositories.CitaRepository;
 import org.vaadin.paul.spring.repositories.InformeRepository;
 import org.vaadin.paul.spring.repositories.UserRepository;
@@ -42,7 +45,7 @@ public class InformesUsuario extends VerticalLayout{
 		this.repo = repo;
 		informes = new ArrayList<Informe>();
 		
-		this.grid.addColumn(Informe::getNombreyApellidosSanitario).setHeader("Nombre del Sanitario");
+		this.grid.addColumn(Informe::getNombreyApellidosSanitario, "Nombre del Sanitario").setHeader("Nombre del Sanitario");
 		grid.addColumn(new ComponentRenderer<>(informe -> { 
 			 Grid<Informe> grid2 = new Grid<>();
 			 grid2.addColumn(Informe::getNombreyApellidosSanitario).setHeader("Nombre del Sanitario");
@@ -87,7 +90,8 @@ public class InformesUsuario extends VerticalLayout{
 	}
 	
 	private void listInformes() {
-		List <Cita> citas = repo.findByPaciente(repousuario.findByid(4));
+		User u = (User) SecurityUtils.getAuthenticatedUser();
+		List <Cita> citas = repo.findByPaciente(u);
 		for(Cita cita:citas) {	
 			informes.add(repoinformes.findByid(cita.getInforme().getid()));
 		}

@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Centro {
@@ -30,9 +34,11 @@ public class Centro {
 //	@OneToOne
 //	Especialidad especialidad;
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=User.class)
 	List<User> usuarios;
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=Trabajador.class)
 	List<Trabajador> trabajadores;
 	

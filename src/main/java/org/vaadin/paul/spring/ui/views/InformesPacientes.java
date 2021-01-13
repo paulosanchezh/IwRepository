@@ -1,15 +1,19 @@
 package org.vaadin.paul.spring.ui.views;
 
 import org.vaadin.paul.spring.MainView;
+import org.vaadin.paul.spring.app.security.SecurityUtils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.vaadin.paul.spring.entities.Cita;
 import org.vaadin.paul.spring.entities.Informe;
+import org.vaadin.paul.spring.entities.User;
 import org.vaadin.paul.spring.repositories.CitaRepository;
 import org.vaadin.paul.spring.repositories.InformeRepository;
 import org.vaadin.paul.spring.repositories.SanitarioRepository;
+import org.vaadin.paul.spring.repositories.TrabajadorRepository;
 
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
@@ -31,18 +35,20 @@ public class InformesPacientes extends FormLayout{
 	private Grid<Informe> grid;
 	private final InformeRepository repoinformes;
 	private final SanitarioRepository reposanitario;
+	private final TrabajadorRepository repotrabajador;
 	private final CitaRepository repo;
 	private List <Informe> informes;
 	
-	public InformesPacientes(InformeRepository repoinformes, SanitarioRepository reposanitario, CitaRepository repo) {
+	public InformesPacientes(InformeRepository repoinformes, SanitarioRepository reposanitario, CitaRepository repo, TrabajadorRepository repotrabajador) {
 		
 		this.repoinformes = repoinformes;
 		this.grid = new Grid<>();
 		this.reposanitario = reposanitario;
 		this.repo = repo;
+		this.repotrabajador = repotrabajador;
 		informes = new ArrayList<Informe>();
 		
-		this.grid.addColumn(Informe::getNombreyApellidospaciente).setHeader("Nombre y Apellidos");
+		this.grid.addColumn(Informe::getNombreyApellidospaciente, "Nombre y Apellidos").setHeader("Nombre y Apellidos");
 		grid.addColumn(new ComponentRenderer<>(informe -> { 
 			 Button confirmbutton = new Button("Informe");
 			 Grid<Informe> grid2 = new Grid<>();
@@ -94,17 +100,14 @@ public class InformesPacientes extends FormLayout{
 		}));
 		listInformes();
 		add(grid);
-		
 	}
 	
 	private void listInformes() {
-		List <Cita> citas = repo.findBySanitario(reposanitario.findById(13));
+		User u = (User) SecurityUtils.getAuthenticatedUser();
+		List <Cita> citas = repo.findBySanitario(reposanitario.findByTrabajador(repotrabajador.findByUser(u)));
 		for(Cita cita:citas) {	
 			informes.add(repoinformes.findByid(cita.getInforme().getid()));
 		}
-		
 		grid.setItems(informes);
-		
 	}
-	
 }

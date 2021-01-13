@@ -2,13 +2,17 @@ package org.vaadin.paul.spring.ui.views;
 
 import java.time.LocalDate;
 import org.vaadin.paul.spring.MainView;
+import org.vaadin.paul.spring.app.security.SecurityUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.vaadin.paul.spring.entities.Cita;
 import org.vaadin.paul.spring.entities.Informe;
+import org.vaadin.paul.spring.entities.User;
 import org.vaadin.paul.spring.repositories.CitaRepository;
 import org.vaadin.paul.spring.repositories.SanitarioRepository;
+import org.vaadin.paul.spring.repositories.TrabajadorRepository;
 import org.vaadin.paul.spring.repositories.UserRepository;
 
 import com.vaadin.flow.component.Text;
@@ -32,11 +36,12 @@ public class VerPacientes extends VerticalLayout {
 	private final UserRepository repousuario;
 	private final CitaRepository repo;
 	private final SanitarioRepository reposanitario;
+	private final TrabajadorRepository repotrabajador;
 	private List <Informe> informes;
 	
-	public VerPacientes(UserRepository repousuario, CitaRepository repo,SanitarioRepository reposanitario) {
-		
+	public VerPacientes(UserRepository repousuario, CitaRepository repo,SanitarioRepository reposanitario,TrabajadorRepository repotrabajador) {
 		this.repo = repo;
+		this.repotrabajador = repotrabajador;
 		this.repousuario = repousuario;
 		this.reposanitario = reposanitario;
 		this.grid = new Grid<>();
@@ -47,11 +52,11 @@ public class VerPacientes extends VerticalLayout {
 		
 		listpacientes();
 		add(grid);
-		
 	}
 	
 	private void listpacientes() {
-		grid.setItems(repo.findBySanitario(reposanitario.findById(13)));
+		User u = (User) SecurityUtils.getAuthenticatedUser();
+		grid.setItems(repo.findBySanitario(reposanitario.findByTrabajador(repotrabajador.findByUser(u))));
 	}
 	
 }
