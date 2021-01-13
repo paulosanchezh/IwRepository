@@ -22,10 +22,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
 
 @Route(value = "ver-citas", layout = MainView.class)
 @PageTitle("Citas")
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 
 public class VerCitas extends VerticalLayout {
 

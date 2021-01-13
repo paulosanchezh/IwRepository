@@ -14,9 +14,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
 @Route(value = "citas-pendientes", layout = MainView.class)
 @PageTitle("Citas Pendientes")
+@Secured({"ROLE_SANITARIO", "ROLE_ADMIN"})
 
 public class CitasPendientes extends VerticalLayout {
 	private static final long serialVersionUID = 1L;

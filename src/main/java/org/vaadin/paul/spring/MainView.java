@@ -77,7 +77,7 @@ public class MainView extends AppLayout {
         layout.setId("header");
         layout.getThemeList().set("dark", true);
         layout.setWidthFull();
-        layout.setSpacing(false);
+        layout.setSpacing(true);
         layout.setAlignItems(FlexComponent.Alignment.CENTER);
         layout.add(new DrawerToggle());
         viewTitle = new H1("Centros Sanitarios La Paz");
@@ -88,6 +88,7 @@ public class MainView extends AppLayout {
 
     private Component createDrawerContent(Tabs menu) {
         VerticalLayout layout = new VerticalLayout();
+        layout.getThemeList().set("dark", true);
         layout.setSizeFull();
         layout.setPadding(false);
         layout.setSpacing(false);
@@ -96,6 +97,7 @@ public class MainView extends AppLayout {
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+        logoLayout.setSpacing(true);
         logoLayout.add(new Image("icons/logo.png", "Logo"));
         logoLayout.add(new H1("IW"));
         layout.add(logoLayout, menu);
@@ -117,21 +119,31 @@ public class MainView extends AppLayout {
     	if (user != null && user.getAuthorities().stream()
 			      .anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
     		return new Tab[] {
-    	            createTab("Coger Cita", FormCogerCita.class),
+    			createTab("Coger Cita", FormCogerCita.class),
+    	        createTab("Informes", InformesUsuario.class),
+    	        createTab("Ver Citas", VerCitas.class),
     	        };
 		}
     	
     	else if (user != null && user.getAuthorities().stream()
 			      .anyMatch(a -> a.getAuthority().equals("ROLE_SANITARIO"))) {
-  		return new Tab[] {
+    		return new Tab[] {
   	            createTab("Citas del día", CitasDelDia.class),
   	            createTab("Citas Pendientes", CitasPendientes.class),
+  	            createTab("Informes Pacientes", InformesPacientes.class),
+  	            createTab("Ver Pacientes", VerPacientes.class),
   	        };
 		}
     	
     	else {
     		return new Tab[] {
-    				
+    			createTab("Coger Cita", FormCogerCita.class),
+    	        createTab("Informes", InformesUsuario.class),
+    	        createTab("Ver Citas", VerPacientes.class),
+    	        createTab("Citas del día", CitasDelDia.class),
+      	        createTab("Citas Pendientes", CitasPendientes.class),
+      	        createTab("Informes Pacientes", InformesPacientes.class),
+      	        createTab("Ver Pacientes", VerPacientes.class),
     		};
     	}
         

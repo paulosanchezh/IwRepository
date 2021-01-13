@@ -1,5 +1,6 @@
 package org.vaadin.paul.spring.ui.views;
 
+import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import com.vaadin.flow.router.Route;
 
 @Route(value = "informes-usuarios", layout = MainView.class)
 @PageTitle("Informes")
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 
 public class InformesUsuario extends VerticalLayout{
 	

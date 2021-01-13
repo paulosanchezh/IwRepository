@@ -3,6 +3,8 @@ package org.vaadin.paul.spring.ui.views;
 import java.awt.Window;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
 import org.vaadin.paul.spring.entities.Cita;
 import org.vaadin.paul.spring.entities.Informe;
@@ -27,6 +29,7 @@ import com.vaadin.flow.server.VaadinRequest;
 
 @Route(value = "citashoy", layout=MainView.class)
 @PageTitle("Citas de hoy")
+@Secured({"ROLE_SANITARIO", "ROLE_ADMIN"})
 
 public class CitasDelDia<V> extends VerticalLayout {
 	private Grid<Cita> grid;

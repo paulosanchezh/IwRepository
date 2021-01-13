@@ -16,10 +16,13 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.LocalDateToDateConverter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
 
 @Route(value = "coger-cita", layout = MainView.class)
 @PageTitle("Coger Cita")
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class FormCogerCita extends VerticalLayout {
 	private ComboBox<String> especialidad = new ComboBox<>("Especialidad", "Traumatólogo", "Medico de cabecera");
 	
@@ -67,7 +70,6 @@ public class FormCogerCita extends VerticalLayout {
 		localidad.setEnabled(false);
 		
 		listprovincias();
-		
 		
 		add(provincia);
 		add(localidad);

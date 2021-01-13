@@ -19,9 +19,11 @@ public class Cita {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
 	int id;
+	
 	@JoinColumn (name = "idPaciente")
 	@ManyToOne
 	User paciente;
+	
 	@JoinColumn (name = "idTrabajador")
 	@ManyToOne
 	Sanitario sanitario;
