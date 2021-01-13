@@ -23,8 +23,8 @@ import org.vaadin.paul.spring.MainView;
 import org.vaadin.paul.spring.entities.Centro;
 import org.vaadin.paul.spring.entities.User;
 
-@Route(value = "citashoy", layout=MainView.class)
-@Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
+@Route(value = "PruebaEstadistica", layout=MainView.class)
+@Secured({"ROLE_ADMIN", "ROLE_GESTOR"})
 
 public class PruebaEstadistica extends VerticalLayout{
 	
@@ -52,7 +52,6 @@ public class PruebaEstadistica extends VerticalLayout{
         
 		for(Centro centro : lCentro) {
 			List<User> user = centro.getUsuarios();
-			System.out.println(user.size());
 			x.addCategory(centro.getNombre());
 			series.addData(user.size());
 		}

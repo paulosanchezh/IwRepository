@@ -132,6 +132,11 @@ public class FormCogerCita extends VerticalLayout {
 	
 	void listcentros(Localidad localidad) {
 		centro.setItems(repocentros.findByLocalidad(localidad));
+		List<Centro> lCentro = repocentros.findByLocalidad(localidad);
+		for(Centro centro : lCentro) {
+			centro.getEspecialidad();
+			centro.getTrabajadores();
+		}
 	}
 	
 	void listespecialidades(Centro c){
