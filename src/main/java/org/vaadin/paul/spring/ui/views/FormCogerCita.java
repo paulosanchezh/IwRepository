@@ -94,4 +94,34 @@ public class FormCogerCita extends VerticalLayout {
 	void listcentros(Localidad localidad) {
 		centro.setItems(repocentros.findByLocalidad(localidad));
 	}
+	
+	void listespecialidades(Centro c){
+		especialidad.setItems(c.getEspecialidad());
+	}
+	
+	Sanitario medicocita(Centro c, Especialidad e) {
+		
+		List<Trabajador> trabajadores = c.getTrabajadores();
+		List<Sanitario> sanitarios = new ArrayList<Sanitario>();
+		Sanitario s = new Sanitario();
+		
+		for(Trabajador trabajador:trabajadores) {
+			
+			sanitarios.add(reposanitario.findByTrabajador(trabajador));
+			
+		}
+		
+		for(Sanitario sanitario:sanitarios) {
+			if(sanitario.getEspecialidad() == e) {
+				s = sanitario;
+				break;
+			}
+		}
+		
+		return s;
+	}
+	
+	void guardar_cita(Cita c) {
+		repocitas.save(c);
+	}
 }

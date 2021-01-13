@@ -3,6 +3,7 @@ package org.vaadin.paul.spring.ui.views;
 import java.util.List;
 
 import org.vaadin.paul.spring.entities.Cita;
+import org.vaadin.paul.spring.entities.User;
 import org.vaadin.paul.spring.repositories.CitaRepository;
 import org.vaadin.paul.spring.repositories.UserRepository;
 
@@ -25,6 +26,7 @@ import com.vaadin.flow.router.Route;
 
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
+import org.vaadin.paul.spring.app.security.SecurityUtils;
 
 @Route(value = "ver-citas", layout = MainView.class)
 @PageTitle("Citas")
@@ -48,7 +50,7 @@ public class VerCitas extends VerticalLayout {
 		this.grid.addColumn(Cita::getConfirmada, "Confirmada").setHeader("Confirmada");
 		
 		crearcitabutton.addClickListener(event -> { 
-			crearcitabutton.getUI().ifPresent(ui -> ui.navigate(VerPacientes.class));
+			crearcitabutton.getUI().ifPresent(ui -> ui.navigate(FormCogerCita.class));
 	 	}); 
 		
 		listpacientes();
@@ -58,6 +60,7 @@ public class VerCitas extends VerticalLayout {
 	}
 	
 	private void listpacientes() {
-		grid.setItems(repo.findByPaciente(repousuario.findByid(4)));
+		User u = (User) SecurityUtils.getAuthenticatedUser();
+		grid.setItems(repo.findByPaciente(u));
 	}
 }

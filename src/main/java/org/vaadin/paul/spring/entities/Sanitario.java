@@ -38,4 +38,8 @@ public class Sanitario{
 	public Trabajador getTrabajador(){
 		return trabajador;
 	}
+	
+	public Especialidad getEspecialidad(){
+		return especialidad;
+	}
 };
