@@ -24,7 +24,7 @@ public class Cita {
 	@ManyToOne
 	User paciente;
 	
-	@JoinColumn (name = "idTrabajador")
+	@JoinColumn (name = "idSanitario")
 	@ManyToOne
 	Sanitario sanitario;
 	
