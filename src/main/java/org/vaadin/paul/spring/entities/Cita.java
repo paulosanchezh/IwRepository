@@ -25,12 +25,14 @@ public class Cita {
 	@JoinColumn (name = "idTrabajador")
 	@ManyToOne
 	Sanitario sanitario;
+	
 	@JoinColumn (name = "idInforme")
 	@OneToOne
 	Informe informe;
+	
 	@Column (name = "fecha")
 	LocalDate fechaCita;
-	// hora incluida en fecha?
+	
 	@Column (name = "importe")
 	float importe;
 	@Column(name = "Confirmada")

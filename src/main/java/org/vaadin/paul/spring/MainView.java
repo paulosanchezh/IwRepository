@@ -1,6 +1,8 @@
 package org.vaadin.paul.spring;
 
 
+import org.vaadin.paul.spring.app.security.SecurityUtils;
+import org.vaadin.paul.spring.entities.User;
 import org.vaadin.paul.spring.ui.views.*;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
@@ -61,7 +63,8 @@ public class MainView extends AppLayout {
     
 	private final Tabs menu;
     private H1 viewTitle;
-
+    private User user;
+    
     public MainView() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
@@ -79,7 +82,7 @@ public class MainView extends AppLayout {
         layout.add(new DrawerToggle());
         viewTitle = new H1();
         layout.add(viewTitle);
-        //layout.add(new Image("icons/logo.png", "Avatar"));
+        layout.add(new Image("icons/logo.png", "Logo"));
         return layout;
     }
 
@@ -93,7 +96,7 @@ public class MainView extends AppLayout {
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-        logoLayout.add(new Image("icons/logo.png", "My Project logo"));
+        logoLayout.add(new Image("icons/logo.png", "Centros Sanitarios La paz"));
         logoLayout.add(new H1("IW"));
         layout.add(logoLayout, menu);
         return layout;
@@ -109,11 +112,29 @@ public class MainView extends AppLayout {
     }
 
     private Component[] createMenuItems() {
-        return new Tab[] {
-            createTab("Coger Cita", FormCogerCita.class),
-            createTab("Citas Pendientes", CitasPendientes.class),
-            createTab("Citas del dia", CitasDelDia.class)
-        };
+    	user = (User) SecurityUtils.getAuthenticatedUser();
+    	
+    	if (user != null && user.getAuthorities().stream()
+			      .anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+    		return new Tab[] {
+    	            createTab("Coger Cita", FormCogerCita.class),
+    	        };
+		}
+    	
+    	else if (user != null && user.getAuthorities().stream()
+			      .anyMatch(a -> a.getAuthority().equals("ROLE_SANITARIO"))) {
+  		return new Tab[] {
+  	            createTab("Citas del día", CitasDelDia.class),
+  	            createTab("Citas Pendientes", CitasPendientes.class),
+  	        };
+		}
+    	
+    	else {
+    		return new Tab[] {
+    				
+    		};
+    	}
+        
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
