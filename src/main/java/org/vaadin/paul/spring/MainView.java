@@ -80,7 +80,7 @@ public class MainView extends AppLayout {
         layout.setSpacing(false);
         layout.setAlignItems(FlexComponent.Alignment.CENTER);
         layout.add(new DrawerToggle());
-        viewTitle = new H1();
+        viewTitle = new H1("Centros Sanitarios La Paz");
         layout.add(viewTitle);
         layout.add(new Image("icons/logo.png", "Logo"));
         return layout;
@@ -96,7 +96,7 @@ public class MainView extends AppLayout {
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-        logoLayout.add(new Image("icons/logo.png", "Centros Sanitarios La paz"));
+        logoLayout.add(new Image("icons/logo.png", "Logo"));
         logoLayout.add(new H1("IW"));
         layout.add(logoLayout, menu);
         return layout;
