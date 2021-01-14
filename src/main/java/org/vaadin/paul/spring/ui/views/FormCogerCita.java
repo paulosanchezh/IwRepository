@@ -20,6 +20,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.LocalDateToDateConverter;
 import com.vaadin.flow.router.PageTitle;
@@ -27,6 +28,7 @@ import com.vaadin.flow.router.Route;
 import org.springframework.security.access.annotation.Secured;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,8 @@ public class FormCogerCita extends VerticalLayout {
 	private ComboBox<Centro> centro = new ComboBox<>();
 	
 	private DatePicker fechaCita = new DatePicker("Fecha cita");
+	
+	private TimePicker horaCita = new TimePicker("Hora cita");
 
 	private Button save = new Button("Save");
 	
@@ -102,9 +106,10 @@ public class FormCogerCita extends VerticalLayout {
 		
 		save.addClickListener(event -> { 
 			LocalDate fecha = fechaCita.getValue();
+			LocalTime hora = horaCita.getValue(); 
 			User u = (User) SecurityUtils.getAuthenticatedUser();
 			Sanitario s = medicocita(centro.getValue(), especialidad.getValue());
-			Cita c = new Cita((Integer) null, u, s, null, fecha, 30);
+			Cita c = new Cita((Integer) null, u, s, null, fecha, hora, 30);
 			guardar_cita(c);
 		}); 
 		

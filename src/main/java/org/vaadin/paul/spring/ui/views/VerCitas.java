@@ -49,7 +49,7 @@ public class VerCitas extends VerticalLayout {
 		H1 h = new H1(this.user.getApellidos());
 		this.grid.addColumn(Cita::getNombreyApellidosSanitario, "Nombres y Apellidos Sanitario"
 				+ " ").setHeader("Nombre y Apellidos");
-		this.grid.addColumn(Cita::getFechaCita, "Fecha").setHeader("Fecha");
+		this.grid.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
 		this.grid.addColumn(Cita::getConfirmadaString, "Confirmada").setHeader("Confirmada");
 		add(h);
 		crearcitabutton.addClickListener(event -> { 

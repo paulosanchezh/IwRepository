@@ -50,7 +50,7 @@ public class VerPacientes extends VerticalLayout {
 		this.grid = new Grid<>();
 		
 		this.grid.addColumn(Cita::getNombreyApellidospaciente, "Nombres y Apellidos").setHeader("Nombre y Apellidos");
-		this.grid.addColumn(Cita::getFechaCita, "Fecha").setHeader("Fecha");
+		this.grid.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
 		this.grid.addColumn(Cita::getConfirmada, "Confirmada").setHeader("Confirmada");
 		
 		listpacientes();

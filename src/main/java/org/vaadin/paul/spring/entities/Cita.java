@@ -1,6 +1,7 @@
 package org.vaadin.paul.spring.entities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,44 +12,46 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 @Entity
 public class Cita {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
-	int id;
+	private int id;
 	
 	@JoinColumn (name = "idPaciente")
 	@ManyToOne
-	User paciente;
+	private User paciente;
 	
 	@JoinColumn (name = "idSanitario")
 	@ManyToOne
-	Sanitario sanitario;
+	private Sanitario sanitario;
 	
 	@JoinColumn (name = "idInforme")
 	@OneToOne
-	Informe informe;
+	private Informe informe;
 	
 	@Column (name = "fecha")
-	LocalDate fechaCita;
+	private LocalDate fecha;
+	
+	private LocalTime hora;
 	
 	@Column (name = "importe")
-	float importe;
+	private float importe;
+	
 	@Column(name = "Confirmada")
-	boolean confirmada;
+	private boolean confirmada;
 	
 	public Cita() {}
 	
-	public Cita(int id, User paciente, Sanitario sanitario, Informe informe, LocalDate fechaCita,
+	public Cita(int id, User paciente, Sanitario sanitario, Informe informe, LocalDate fecha, LocalTime hora,
 			float importe) {
 		this.id = id;
 		this.paciente = paciente;
 		this.sanitario = sanitario;
 		this.informe = informe;
-		this.fechaCita = fechaCita;
+		this.fecha = fecha;
+		this.hora = hora;
 		this.importe = importe;
 		this.confirmada = false;
 	}
@@ -81,12 +84,12 @@ public class Cita {
 		this.informe = informe;
 	}
 	
-	public LocalDate getFechaCita() {
-		return fechaCita;
+	public LocalDate getFecha() {
+		return fecha;
 	}
 	
-	public void setFechaCita(LocalDate fechaCita) {
-		this.fechaCita = fechaCita;
+	public void setFecha(LocalDate fechaCita) {
+		this.fecha = fechaCita;
 	}
 	
 	public float getImporte() {
@@ -111,6 +114,14 @@ public class Cita {
 	
 	public void setConfirmada(boolean confirmada) {
 		this.confirmada = confirmada;
+	}
+	
+	public LocalTime getHora() { 
+		return hora;
+	}
+	
+	public void setHora(LocalTime hora) {
+		this.hora = hora;
 	}
 	
 	public String getConfirmadaString() {
