@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 public class User implements UserDetails {
@@ -26,16 +28,22 @@ public class User implements UserDetails {
 	@JoinColumn(name = "rol")
 	@OneToOne
 	private Rol rol;
+	
 	@Column (name = "nombre", length = 128)
     private String nombre;
+	
 	@Column (name = "apellidos", length = 128)
     private String apellidos;
+	
 	@Column (name = "dni")
 	private String dni;
+	
 	@Column (name = "direccion", length = 128)
     private String direccion;
+	
 	@Column (name = "telefono", length = 128)
     private String tlf;
+	
 	@Column (name = "baja")
 	private boolean baja;
 
@@ -54,11 +62,19 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-		list.add(new SimpleGrantedAuthority("ROLE_" + rol.getNombre_()));
+		list.add(new SimpleGrantedAuthority("ROLE_" + rol.getNombre()));
 		return list;
 	}
 	public int getId() {
 		return this.id;
+	}
+	
+	public Rol getRol() {
+		return rol;
+	}
+	
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 
 	public String getNombre() {
@@ -113,10 +129,19 @@ public class User implements UserDetails {
 	public String getPassword() {
 		return password;
 	}
+	
+	public void setPassword(String password) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
+		this.password = encoder.encode(password);
+	}
 
 	@Override
 	public String getUsername() {
 		return username;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	@Override

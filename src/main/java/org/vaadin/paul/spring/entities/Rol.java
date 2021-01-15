@@ -23,15 +23,15 @@ public class Rol {
 		this.nombre = nombre;
 	}
 	
-	public int getId_() {
+	public int getId() {
 		return id;
 	}
 	
-	public String getNombre_() {
+	public String getNombre() {
 		return nombre;
 	}
 	
-	public void setNombre_(String nombre_) {
+	public void setNombre(String nombre_) {
 		this.nombre = nombre_;
 	}
 }
