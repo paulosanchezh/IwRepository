@@ -91,8 +91,6 @@ public class createUser extends FormLayout {
 			.asRequired("La contraseña no puede estar vacía")
 			.bind(User::getPassword, User::setPassword );
         
-
-        
 //        binder.forField(confirmPasswordField)
 //			.asRequired("Debes confirmar la contraseña")
 //			.bind(User::getPassword, (person, password) -> {} );

@@ -3,10 +3,13 @@ package org.vaadin.paul.spring.ui.views;
 import org.vaadin.paul.spring.MainView;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.app.security.SecurityUtils;
+import org.vaadin.paul.spring.entities.Provincia;
 import org.vaadin.paul.spring.entities.User;
+import org.vaadin.paul.spring.repositories.ProvinciaRepository;
 import org.vaadin.paul.spring.repositories.UserRepository;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
@@ -20,8 +23,10 @@ public class UserView extends FormLayout {
 	H1 texto;
 	Button button;
 	User user;
+	ComboBox<Provincia> a = new ComboBox<>();
+	ProvinciaRepository r;
 	
-	public UserView(UserRepository repo) {
+	public UserView(UserRepository repo, ProvinciaRepository r) {
 //Para traer el usuario que está usando la sesión
 		this.user = (User) SecurityUtils.getAuthenticatedUser();
 		
