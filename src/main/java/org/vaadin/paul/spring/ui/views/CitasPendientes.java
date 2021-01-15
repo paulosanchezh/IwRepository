@@ -53,6 +53,6 @@ public class CitasPendientes extends VerticalLayout {
 	private void listCustomers() {
 		LocalDate hoy = LocalDate.now();
 		User u = (User) SecurityUtils.getAuthenticatedUser();
-		grid.setItems(repo.findByFechaCitaAndSanitarioAndConfirmada(hoy, reposanitario.findByTrabajador(repotrabajador.findByUser(u)), false));
+		grid.setItems(repo.findByFechaAndSanitarioAndConfirmada(hoy, reposanitario.findByTrabajador(repotrabajador.findByUser(u)), false));
 	}
 }

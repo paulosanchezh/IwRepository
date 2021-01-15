@@ -20,7 +20,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	
 	List<Cita>findByImporteAndConfirmada(float importe, boolean confirmada);
 	List<Cita> findByPaciente(User paciente);
-	List<Cita>findByFechaCitaAndSanitarioAndConfirmada(LocalDate fechaCita, Sanitario sanitario, boolean confirmada);
+	List<Cita>findByFechaAndSanitarioAndConfirmada(LocalDate fechaCita, Sanitario sanitario, boolean confirmada);
 	List<Cita> findBySanitario(Sanitario findById);
 	List<Cita> findBySanitarioAndPaciente(Sanitario sanitario, User paciente);
 }

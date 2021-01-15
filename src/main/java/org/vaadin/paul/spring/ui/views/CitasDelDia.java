@@ -79,7 +79,7 @@ public class CitasDelDia<V> extends VerticalLayout {
 	private void listCustomers() {
 		LocalDate hoy = LocalDate.now();
 		User u = (User) SecurityUtils.getAuthenticatedUser();
-		grid.setItems(repo.findByFechaCitaAndSanitarioAndConfirmada(hoy, reposanitario.findByTrabajador(repotrabajador.findByUser(u)), true));
+		grid.setItems(repo.findByFechaAndSanitarioAndConfirmada(hoy, reposanitario.findByTrabajador(repotrabajador.findByUser(u)), true));
 	}
 	
 }
