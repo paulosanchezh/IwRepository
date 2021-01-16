@@ -1,6 +1,7 @@
 package org.vaadin.paul.spring.entities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,34 +18,46 @@ public class Trabajador{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
-	int id;
+	private int id;
+	
 	@JoinColumn (name = "idUser")
 	@OneToOne
-	User user;
-	@Column (name = "horario", length = 256)
-    String horario;
+	private User user;
+	
+	private LocalTime horaInicio;
+	
+	private LocalTime horaFinal;
+	
 	@Column (name = "salarioBruto")
-    float salario;
+    private float salario;
+	
 	@Column (name = "fechaContrato")
-    LocalDate fechaContrato;
+    private LocalDate fechaContrato;
 	
 	public Trabajador () {}
 
-	public Trabajador(User usuario, String horario, float salario, LocalDate fechaContrato){
-        
+	public Trabajador(User usuario, LocalTime horaInicio, LocalTime horaFinal, float salario, LocalDate fechaContrato){  
 		this.user = usuario;
-        this.horario = horario;
+        this.horaInicio = horaInicio;
+        this.horaFinal = horaFinal;
         this.salario = salario;
         this.fechaContrato = fechaContrato;
-     
     }
 	
-    public String getHorario() {
-		return this.horario;
+    public LocalTime getHoraInicio() {
+		return horaInicio;
 	}
+    
+    public void setHoraInicio(LocalTime horaInicio) {
+    	this.horaInicio = horaInicio;
+    }
 
-	public void setHorario(String horario) {
-		this.horario = horario;
+    public LocalTime getHoraFinal() {
+    	return horaFinal;
+    }
+    
+	public void setHoraFinal(LocalTime horaFinal) {
+		this.horaFinal = horaFinal;
 	}
 
     public float getSalario() {
