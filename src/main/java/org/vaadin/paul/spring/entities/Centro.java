@@ -35,6 +35,7 @@ public class Centro {
 //	@OneToOne
 //	Especialidad especialidad;
 	
+	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=User.class)
 	List<User> usuarios;
