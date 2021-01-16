@@ -15,13 +15,17 @@ import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.timepicker.TimePicker;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -40,6 +44,8 @@ public class VerCitas extends VerticalLayout {
 	private final UserRepository repousuario;
 	private final CitaRepository repo;
 	User user = (User) SecurityUtils.getAuthenticatedUser();
+	private DatePicker fecha = new DatePicker("Fecha cita");
+	private TimePicker hora = new TimePicker("Hora cita");
 	 
 
 	public VerCitas(UserRepository repousuario, CitaRepository repo) {
@@ -53,6 +59,8 @@ public class VerCitas extends VerticalLayout {
 		this.grid.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
 		this.grid.addColumn(Cita::getHora, "Hora").setHeader("Hora");
 		this.grid.addColumn(Cita::getConfirmadaString, "Confirmada").setHeader("Confirmada");
+		Binder<Cita> binder = new Binder<>(Cita.class);
+		
 		grid.addColumn(new ComponentRenderer<>(cita -> { 
 			Button modificarbutton = new Button("Modificar");
 			if(cita.getConfirmada())
@@ -60,6 +68,37 @@ public class VerCitas extends VerticalLayout {
 			
 			modificarbutton.addClickListener(event ->{
 				
+			  binder.forField(fecha)
+		   			.asRequired("Debes de selecionar una fecha")
+		   			.bind(Cita::getFecha, Cita::setFecha);
+		       add(fecha);
+		       
+		       binder.forField(hora)
+					.asRequired("Debes de selecionar una hora")
+					.bind(Cita::getHora, Cita::setHora);
+		       add(hora);
+		       
+		       Dialog dialog = new Dialog();
+				 dialog.setModal(true);
+				 dialog.setDraggable(true); 
+				 dialog.setResizable(false);
+				 dialog.setWidth("1200px"); 
+				 dialog.setHeight("1000px");
+				 
+				 dialog.open();
+				 Button closebutton = new Button("close", e -> dialog.close());
+				 Button confirmarbutton = new Button("Confirmar");
+				 dialog.add(fecha, hora, confirmarbutton, closebutton);
+				 binder.setBean(cita);
+				 
+				 confirmarbutton.addClickListener(e1 ->{
+					 if (binder.validate().isOk()) {
+						 Notification.show("La cita ha sido modificada");
+				    		repo.save(cita);
+				    	}
+					 listcitas();
+					 dialog.close();
+				 });
 				
 			});
 			
@@ -82,16 +121,18 @@ public class VerCitas extends VerticalLayout {
 		
 		add(h);
 		crearcitabutton.addClickListener(event -> { 
+
 			crearcitabutton.getUI().ifPresent(ui -> ui.navigate(solicitarCita.class)); 
+
 	 	}); 
 		
-		listpacientes();
+		listcitas();
 		add(grid);
 		add(crearcitabutton);
 		
 	}
 	
-	private void listpacientes() {
+	private void listcitas() {
 		grid.setItems(repo.findByPaciente(repousuario.findByid(this.user.getId())));
 	}
 }
