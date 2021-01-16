@@ -125,7 +125,7 @@ public class MainView extends AppLayout {
     	if (user != null && user.getAuthorities().stream()
 			      .anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
     		return new Tab[] {
-    			createTab("Coger Cita", FormCogerCita.class),
+    			createTab("Coger Cita", solicitarCita.class),
     	        createTab("Informes", InformesUsuario.class),
     	        createTab("Ver Citas", VerCitas.class),
     	        };
@@ -143,7 +143,7 @@ public class MainView extends AppLayout {
     	
     	else {
     		return new Tab[] {
-    			createTab("Coger Cita", FormCogerCita.class),
+    			createTab("Coger Cita", solicitarCita.class),
     	        createTab("Informes", InformesUsuario.class),
     	        createTab("Ver Citas", VerPacientes.class),
     	        createTab("Citas del día", CitasDelDia.class),
