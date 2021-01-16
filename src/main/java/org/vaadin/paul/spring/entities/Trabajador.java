@@ -20,42 +20,44 @@ public class Trabajador{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
 	private int id;
+
 	@JoinColumn (name = "idUser")
 	@OneToOne
 	private User user;
+
 	@Column (name = "horario", length = 256)
     private String horario;
-	@Column (name = "salarioBruto")
-    private float salario;
-	@Column (name = "fechaContrato")
-    private LocalDate fechaContrato;
-	
-	@JoinColumn (name = "idCentro")
-	@OneToOne
-	private Centro centro;
+
 	
 	private LocalTime horaInicio;
 	
 	private LocalTime horaFinal;
 	
+
+	@Column (name = "salarioBruto")
+    private float salario;
+
+	@Column (name = "fechaContrato")
+    private LocalDate fechaContrato;
+
+	
+	@JoinColumn (name = "idCentro")
+	@OneToOne
+	private Centro centro;
+	
+
+	
 	public Trabajador () {}
 
-	public Trabajador(User usuario, String horario, float salario, LocalDate fechaContrato){
-        
+	public Trabajador(User usuario, LocalTime horaInicio, LocalTime horaFinal, float salario, LocalDate fechaContrato){  
 		this.user = usuario;
-        this.horario = horario;
+        this.horaInicio = horaInicio;
+        this.horaFinal = horaFinal;
         this.salario = salario;
         this.fechaContrato = fechaContrato;
-     
     }
 	
-    public String getHorario() {
-		return this.horario;
-	}
-
-	public void setHorario(String horario) {
-		this.horario = horario;
-	}
+ 
 
     public float getSalario() {
 		return this.salario;

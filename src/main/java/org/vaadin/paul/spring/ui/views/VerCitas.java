@@ -163,7 +163,9 @@ public class VerCitas extends VerticalLayout {
 		
 		add(h);
 		crearcitabutton.addClickListener(event -> { 
-			crearcitabutton.getUI().ifPresent(ui -> ui.navigate(solicitarCita.class));
+
+			crearcitabutton.getUI().ifPresent(ui -> ui.navigate(solicitarCita.class)); 
+
 	 	}); 
 		
 		listcitas();
