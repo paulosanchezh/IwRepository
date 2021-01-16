@@ -23,6 +23,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -41,6 +42,14 @@ public class CitasDelDia<V> extends VerticalLayout {
 	private final InformeRepository repoinformes;
 	private final SanitarioRepository reposanitario;
 	private final TrabajadorRepository repotrabajador;
+	TextField porque = new TextField();
+    TextField enfermedad = new TextField();
+    TextField intervencion = new TextField();
+    TextField diagnostico = new TextField();
+    TextField medicamento = new TextField();
+    TextField planclinico = new TextField();
+    Button firmar = new Button("Firmar");
+	 Button closebutton = new Button("Close");
 	
 	
 
@@ -67,32 +76,43 @@ public class CitasDelDia<V> extends VerticalLayout {
 		
 			 confirmbutton.addClickListener(event -> { 
 				 Binder<Informe> binder = new Binder<>(Informe.class);
-				 if(cita.getInforme() == null) {
-					Button firmar = new Button("Firmar");
+				 
+				 closebutton.addClickListener( e2 -> {
+					 dialog.close();
+				 });
 					
-					TextField porque = new TextField();
+					
 				    porque.setPlaceholder("por que");
 				    porque.setLabel("Porque");
 				    
-				    TextField enfermedad = new TextField();
 				    enfermedad.setPlaceholder("Enfermedad del paciente");
 				    enfermedad.setLabel("Enfermedad");
 				    
-				    TextField intervencion = new TextField();
 				    intervencion.setPlaceholder("Intervencion necesaria");
 				    intervencion.setLabel("Intervencion");
 				    
-				    TextField diagnostico = new TextField();
 				    diagnostico.setPlaceholder("Diagnóstico del paciente");
 				    diagnostico.setLabel("diagnostico");
 				    
-				    TextField medicamento = new TextField();
 				    medicamento.setPlaceholder("Medicamento(s) recetado al paciente");
 				    medicamento.setLabel("Medicamento");
 				    
-				    TextField planclinico = new TextField();
 				    planclinico.setPlaceholder("Plan clinico");
 				    planclinico.setLabel("Plan clinico");
+				    
+
+					VerticalLayout lporque = new VerticalLayout(porque);
+
+					VerticalLayout lenfermedad = new VerticalLayout(enfermedad);
+
+					VerticalLayout lintervencion = new VerticalLayout(intervencion);
+
+					VerticalLayout ldiagnostico = new VerticalLayout(diagnostico);
+
+					VerticalLayout lmedicamento = new VerticalLayout(medicamento);
+
+					VerticalLayout lplanclinico = new VerticalLayout(planclinico);
+					
 				    
 				    binder.forField(porque)
 		        	.asRequired("Por que no puede estar vacío")
@@ -118,22 +138,24 @@ public class CitasDelDia<V> extends VerticalLayout {
 		        	.asRequired("Apellidos no puede estar vacío")
 		        	.bind(Informe::getPlanClinico, Informe::setPlanClinico);
 				    
-				    Informe informe = new Informe();
+				    Informe informe = cita.getInforme();
 			    	binder.setBean(informe);
 				    
-				    dialog.add(porque, enfermedad, intervencion, diagnostico, medicamento, planclinico, firmar);
+				    dialog.add(lporque, lenfermedad, lintervencion, ldiagnostico, lmedicamento, lplanclinico, firmar, closebutton);
 				    firmar.addClickListener(evento -> {
 				    	if (binder.validate().isOk()) {
+				    		informe.setFirma(true);
+				    		informe.setIdCita_(cita);
 				    		repoinformes.save(informe);
 				    	}
 				    	cita.setInforme(informe);
-				    	System.out.println(informe.getMedicamentos());
 				    	repo.save(cita);
+				    	Notification.show("El informe ha sido modificado");
+				    	dialog.close();
 				    	
-				    });
-				    dialog.add(new Button("Close", e -> dialog.close()) ); 
+				    }); 
 				    
-				 }
+				 
 				dialog.open();
 		 	}); 
 		 return confirmbutton;

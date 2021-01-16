@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.vaadin.paul.spring.repositories.CentroRepository;
 
 @Entity
 public class Cita {
@@ -132,5 +133,14 @@ public class Cita {
 			return "Sí";
 		else 
 			return "No";
+	}
+	
+	public String getCentroString() {
+		
+		return sanitario.getTrabajador().getCentro().getNombre();
+	}
+	
+	public Trabajador getTrabajador() {
+		return sanitario.getTrabajador();
 	}
 }

@@ -14,12 +14,12 @@ public class Localidad {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
-	int id;
+	private int id;
 	@Column(name = "nombre")
-	String nombre;
+	private String nombre;
 	@JoinColumn(name = "idProvincia")
 	@OneToOne
-	Provincia provincia;
+	private Provincia provincia;
 	
 	public Localidad () {}
 	

@@ -21,15 +21,15 @@ public class Centro {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
-	int id;
+	private int id;
 	@Column(name = "nombre")
-	String nombre;
+	private String nombre;
 	@Column(name = "telefono")
-	String telefono;
+	private String telefono;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=Especialidad.class)
-	List<Especialidad> especialidades;
+	private List<Especialidad> especialidades;
 	
 //	@JoinColumn(name = "idEspecialidad")
 //	@OneToOne
@@ -38,15 +38,15 @@ public class Centro {
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=User.class)
-	List<User> usuarios;
+	private List<User> usuarios;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=Trabajador.class)
-	List<Trabajador> trabajadores;
+	private List<Trabajador> trabajadores;
 	
 	@JoinColumn(name = "idLocalidad")
 	@OneToOne
-	Localidad localidad;
+	private Localidad localidad;
 	
 	public Centro () {}
 	

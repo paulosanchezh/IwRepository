@@ -12,9 +12,9 @@ public class TipoSanitario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
-	int id;
+	private int id;
 	@Column (name = "nombre", length = 128)
-	String nombre;
+	private String nombre;
 	
 	public TipoSanitario () {}
 	

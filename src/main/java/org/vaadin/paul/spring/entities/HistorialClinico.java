@@ -17,20 +17,20 @@ public class HistorialClinico {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
-	int id;
+	private int id;
 	
 	@JoinColumn(name = "idPaciente")
 	@OneToOne
-	User paciente;
+	private User paciente;
 	
 	@OneToMany(targetEntity=Cita.class)
-	List<Cita> citas;
+	private List<Cita> citas;
 	
 	@OneToMany(targetEntity=Informe.class)
-	List<Informe> informes;
+	private List<Informe> informes;
 
 	@Column(name = "informacionImportante")
-	String InformacionImportante;
+	private String InformacionImportante;
 	
 	public HistorialClinico () {}
 }

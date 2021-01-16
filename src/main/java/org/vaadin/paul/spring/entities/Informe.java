@@ -13,26 +13,26 @@ public class Informe {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
-	int id;
+	private int id;
 	@JoinColumn (name = "idCita")
 	@OneToOne
-	Cita cita;
+	private Cita cita;
 	@Column (name = "porque")
-	String porQue;
+	private String porQue;
 	@Column (name = "enfermedadActual")
-	String enfermedadActual;
+	private String enfermedadActual;
 	@Column (name = "intervencion")
-	String intervencion;
+	private String intervencion;
 	@Column (name = "diagnostico")
-	String diagnostico;
+	private String diagnostico;
 	@Column (name = "medicamentos")
-	String medicamentos;
+	private String medicamentos;
 	@Column (name = "planClinico")
-	String planClinico;
+	private String planClinico;
 	@Column (name = "proximaCita")
-	Date fechaProximaCita;
+	private Date fechaProximaCita;
 	@Column (name = "firmaElectronica")
-	boolean firma;
+	private boolean firma;
 	
 	public Informe () {}
 	

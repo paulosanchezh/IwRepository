@@ -23,4 +23,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	List<Cita>findByFechaAndSanitarioAndConfirmada(LocalDate fechaCita, Sanitario sanitario, boolean confirmada);
 	List<Cita> findBySanitario(Sanitario findById);
 	List<Cita> findBySanitarioAndPaciente(Sanitario sanitario, User paciente);
+	
+	@Query(value = "Select * From Cita Where id_paciente = ?1 AND id_informe IS NOT NULL", nativeQuery = true)
+	List<Cita> findByPacienteAndInforme(int paciente);
 }

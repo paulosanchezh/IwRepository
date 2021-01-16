@@ -14,12 +14,12 @@ public class Calle {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
-	int id;
+	private int id;
 	@Column(name = "nombre")
-	String nombre;
+	private String nombre;
 	@JoinColumn(name = "idLocalidad")
 	@OneToOne
-	Localidad localidad;
+	private Localidad localidad;
 	
 	public Calle() {}
 	

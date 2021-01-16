@@ -1,6 +1,7 @@
 package org.vaadin.paul.spring.entities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,22 +12,31 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 
+
 @Entity
 public class Trabajador{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
-	int id;
+	private int id;
 	@JoinColumn (name = "idUser")
 	@OneToOne
-	User user;
+	private User user;
 	@Column (name = "horario", length = 256)
-    String horario;
+    private String horario;
 	@Column (name = "salarioBruto")
-    float salario;
+    private float salario;
 	@Column (name = "fechaContrato")
-    LocalDate fechaContrato;
+    private LocalDate fechaContrato;
+	
+	@JoinColumn (name = "idCentro")
+	@OneToOne
+	private Centro centro;
+	
+	private LocalTime horaInicio;
+	
+	private LocalTime horaFinal;
 	
 	public Trabajador () {}
 
@@ -66,5 +76,26 @@ public class Trabajador{
     public User getusuario() {
     	return user;
     }
+    
+    public LocalTime getHoraInicio() {
+		return horaInicio;
+	}
+    
+    public void setHoraInicio(LocalTime horaInicio) {
+    	this.horaInicio = horaInicio;
+    }
+
+    public LocalTime getHoraFinal() {
+    	return horaFinal;
+    }
+    
+	public void setHoraFinal(LocalTime horaFinal) {
+		this.horaFinal = horaFinal;
+	}
+	
+	public Centro getCentro() {
+		return centro;
+	}
+	
     
 };

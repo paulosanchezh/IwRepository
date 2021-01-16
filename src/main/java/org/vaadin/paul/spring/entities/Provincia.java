@@ -14,12 +14,12 @@ public class Provincia {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
-	int id;
+	private int id;
 	@Column(name = "nombre")
-	String nombre;
+	private String nombre;
 	@JoinColumn(name = "idComunidad")
 	@OneToOne
-	Comunidad comunidad;
+	private Comunidad comunidad;
 	
 	public Provincia() {}
 	

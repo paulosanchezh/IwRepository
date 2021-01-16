@@ -15,16 +15,16 @@ public class Sanitario{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
-	int idSanitario;
+	private int idSanitario;
 	@JoinColumn (name = "idTrabajador")
 	@OneToOne
-	Trabajador trabajador;
+	private Trabajador trabajador;
 	@JoinColumn (name = "idEspecialidad")
 	@ManyToOne
-	Especialidad especialidad;
+	private Especialidad especialidad;
 	@JoinColumn (name = "idTipo")
 	@OneToOne
-	TipoSanitario tipo;
+	private TipoSanitario tipo;
 	
 	public Sanitario () {}
 	

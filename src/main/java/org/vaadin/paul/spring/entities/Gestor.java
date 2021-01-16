@@ -14,10 +14,10 @@ public class Gestor{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
-	int idGestor;
+	private int idGestor;
 	@JoinColumn (name = "idTrabajador")
 	@OneToOne
-	Trabajador trabajador;
+	private Trabajador trabajador;
 	
 	public Gestor () {}
 	
