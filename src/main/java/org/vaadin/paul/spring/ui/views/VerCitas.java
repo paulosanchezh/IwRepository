@@ -58,6 +58,10 @@ public class VerCitas extends VerticalLayout {
 			if(cita.getConfirmada())
 				modificarbutton.setEnabled(false);
 			
+			modificarbutton.addClickListener(event ->{
+				
+				
+			});
 			
 			return modificarbutton;
 		}));
