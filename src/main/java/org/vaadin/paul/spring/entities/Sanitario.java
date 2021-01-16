@@ -39,7 +39,15 @@ public class Sanitario{
 		return trabajador;
 	}
 	
+	public void setTrabajador(Trabajador trabajador) {
+		this.trabajador = trabajador;
+	}
+	
 	public Especialidad getEspecialidad(){
 		return especialidad;
+	}
+	
+	public void setEspecialidad(Especialidad especialidad) {
+		this.especialidad = especialidad;
 	}
 };

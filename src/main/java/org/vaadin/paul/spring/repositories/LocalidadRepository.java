@@ -14,6 +14,6 @@ import org.vaadin.paul.spring.entities.Provincia;
 
 public interface LocalidadRepository extends JpaRepository<Localidad, Integer>{
 	
-	List<Localidad> findByProvincia(Provincia provincia);
+	List<Localidad> findByprovincia(Provincia provincia);
 
 }

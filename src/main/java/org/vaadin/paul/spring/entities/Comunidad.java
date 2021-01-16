@@ -18,6 +18,11 @@ public class Comunidad {
 	
 	public Comunidad() {}
 	
+	public Comunidad(int id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
+	
 	public int getId() {
 		return id;
 	}

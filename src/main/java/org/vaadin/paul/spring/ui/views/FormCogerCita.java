@@ -73,7 +73,7 @@ public class FormCogerCita extends VerticalLayout {
 		provincia.setItemLabelGenerator(Provincia::getNombre);
 		localidad.setItemLabelGenerator(Localidad::getNombre);
 		centro.setItemLabelGenerator(Centro::getNombre);
-		especialidad.setItemLabelGenerator(Especialidad::getNombre_);
+		especialidad.setItemLabelGenerator(Especialidad::getNombre);
 		
 		provincia.addValueChangeListener(event -> {
 		    if (event.getValue() != null) {
@@ -132,7 +132,7 @@ public class FormCogerCita extends VerticalLayout {
 	}
 	
 	void listlocalidades(Provincia provincia) {
-		localidad.setItems(repolocalidades.findByProvincia(provincia));
+		localidad.setItems(repolocalidades.findByprovincia(provincia));
 	}
 	
 	void listcentros(Localidad localidad) {

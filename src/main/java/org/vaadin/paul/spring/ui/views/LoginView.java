@@ -11,6 +11,7 @@ import org.vaadin.paul.spring.app.security.CustomRequestCache;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -28,6 +29,7 @@ public class LoginView extends VerticalLayout  {
 	
 	private AuthenticationManager authenticationManager;
 	private CustomRequestCache requestCache;
+	private Button registerButton = new Button("Registrarse");
 
 	@Autowired
 	public LoginView(AuthenticationManager authenticationManager, CustomRequestCache requestCache) {
@@ -38,7 +40,6 @@ public class LoginView extends VerticalLayout  {
 		login.setOpened(true);
 		login.setTitle("Centro sanitario login");
 		login.setDescription("Pagina de logueo");
-		add(login);
 		
 		login.addLoginListener(e -> { // 
             try {
@@ -57,5 +58,9 @@ public class LoginView extends VerticalLayout  {
                 login.setError(true);
             }
         });
+		
+//		registerButton.addClickListener( event -> UI.getCurrent().navigate("createuser"));
+//		add(registerButton);
+		add(login);
 	}
 }

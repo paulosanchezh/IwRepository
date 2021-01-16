@@ -27,6 +27,7 @@ public class Centro {
 	@Column(name = "telefono")
 	String telefono;
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=Especialidad.class)
 	List<Especialidad> especialidades;
 	
