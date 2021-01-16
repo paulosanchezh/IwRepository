@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 public class Cita {
 	@Id
@@ -64,8 +66,8 @@ public class Cita {
 		return paciente;
 	}
 	
-	public void setPaciente(User paciente) {
-		this.paciente = paciente;
+	public void setPaciente(User user) {
+		this.paciente = user;
 	}
 	
 	public Sanitario getSanitario() {

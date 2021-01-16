@@ -27,7 +27,8 @@ public class Centro {
 	@Column(name = "telefono")
 	String telefono;
 	
-	@OneToMany(targetEntity=Especialidad.class, fetch=FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(targetEntity=Especialidad.class)
 	List<Especialidad> especialidades;
 	
 //	@JoinColumn(name = "idEspecialidad")
@@ -35,11 +36,11 @@ public class Centro {
 //	Especialidad especialidad;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(targetEntity=User.class, fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=User.class)
 	List<User> usuarios;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(targetEntity=Trabajador.class, fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=Trabajador.class)
 	List<Trabajador> trabajadores;
 	
 	@JoinColumn(name = "idLocalidad")
