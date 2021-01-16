@@ -14,6 +14,7 @@ import java.util.List;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
@@ -46,14 +47,38 @@ public class VerCitas extends VerticalLayout {
 		this.repousuario = repousuario;
 		this.grid = new Grid<>();
 		Button crearcitabutton = new Button("Coger cita");
-		H1 h = new H1(this.user.getApellidos());
-		this.grid.addColumn(Cita::getNombreyApellidosSanitario, "Nombres y Apellidos Sanitario"
-				+ " ").setHeader("Nombre y Apellidos");
+		H1 h = new H1(this.user.getNombreyApellidos());
+		this.grid.addColumn(Cita::getNombreyApellidosSanitario, "Sanitario"
+				+ " ").setHeader("Sanitario");
 		this.grid.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
+		this.grid.addColumn(Cita::getHora, "Hora").setHeader("Hora");
 		this.grid.addColumn(Cita::getConfirmadaString, "Confirmada").setHeader("Confirmada");
+		grid.addColumn(new ComponentRenderer<>(cita -> { 
+			Button modificarbutton = new Button("Modificar");
+			if(cita.getConfirmada())
+				modificarbutton.setEnabled(false);
+			
+			
+			return modificarbutton;
+		}));
+		
+		grid.addColumn(new ComponentRenderer<>(cita -> { 
+			Button cancelarbutton = new Button("Cancelar Cita");
+			if(cita.getConfirmada())
+				cancelarbutton.setEnabled(false);
+			
+			cancelarbutton.addClickListener(event ->{
+				
+			});
+			
+			cancelarbutton.addThemeVariants(ButtonVariant.LUMO_ERROR);
+			
+			return cancelarbutton;
+		}));
+		
 		add(h);
 		crearcitabutton.addClickListener(event -> { 
-			crearcitabutton.getUI().ifPresent(ui -> ui.navigate(VerPacientes.class));
+			crearcitabutton.getUI().ifPresent(ui -> ui.navigate(FormCogerCita.class));
 	 	}); 
 		
 		listpacientes();

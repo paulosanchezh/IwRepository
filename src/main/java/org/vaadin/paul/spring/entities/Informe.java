@@ -37,7 +37,7 @@ public class Informe {
 	public Informe () {}
 	
 	public Informe(int id, Cita cita, String pq, String enfActual, String intervencion, String diagnostico, String medicamentos,
-			String planClinico, Date proximaCita, Trabajador Facultativo) {
+			String planClinico, Date proximaCita) {
 		this.id = id;
 		this.cita = cita;
 		this.porQue=pq;
@@ -47,7 +47,7 @@ public class Informe {
 		this.medicamentos=medicamentos;
 		this.planClinico=planClinico;
 		this.fechaProximaCita=proximaCita;
-		this.firma=false;
+		this.firma=true;
 	}
 	
 	public Cita getIdCita_() {
@@ -94,7 +94,7 @@ public class Informe {
 		this.porQue=pq;
 	}
 	
-	public void setEenfermedadActual(String e) {
+	public void setEnfermedadActual(String e) {
 		this.enfermedadActual=e;
 	}
 	

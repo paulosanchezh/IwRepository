@@ -99,7 +99,5 @@ public class InformesUsuario extends VerticalLayout{
 		}
 		
 		grid.setItems(informes);
-		
 	}
-
 }

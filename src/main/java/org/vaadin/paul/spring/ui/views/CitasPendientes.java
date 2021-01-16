@@ -37,6 +37,7 @@ public class CitasPendientes extends VerticalLayout {
 		this.repotrabajador = repotrabajador;
 		this.grid = new Grid<>();
 		grid.addColumn(Cita::getNombreyApellidospaciente, "Nombres y Apellidos").setHeader("Nombre y apellidos");
+		grid.addColumn(Cita::getHora, "Hora").setHeader("Hora");
 		grid.addColumn(new ComponentRenderer<>(cita -> { 
 			Button confirmbutton = new Button("Confirmar"); 
 			confirmbutton.addClickListener(event -> { 

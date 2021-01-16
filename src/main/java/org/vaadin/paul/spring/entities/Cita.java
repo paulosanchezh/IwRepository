@@ -34,6 +34,7 @@ public class Cita {
 	@Column (name = "fecha")
 	private LocalDate fecha;
 	
+	
 	private LocalTime hora;
 	
 	@Column (name = "importe")
