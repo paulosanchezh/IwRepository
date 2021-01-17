@@ -24,10 +24,6 @@ public class Trabajador{
 	@JoinColumn (name = "idUser")
 	@OneToOne
 	private User user;
-
-	@Column (name = "horario", length = 256)
-    private String horario;
-
 	
 	private LocalTime horaInicio;
 	
@@ -60,6 +56,11 @@ public class Trabajador{
 	public int getId() {
 		return id;
 	}
+	
+	public String getNombre() {
+		return getUser().getNombreyApellidos();
+	}
+	
 
     public float getSalario() {
 		return this.salario;
@@ -99,6 +100,10 @@ public class Trabajador{
 	
 	public Centro getCentro() {
 		return centro;
+	}
+	
+	public void setCentro(Centro centro) {
+		this.centro=centro;
 	}
 	
     

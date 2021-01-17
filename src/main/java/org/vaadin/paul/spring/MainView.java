@@ -143,15 +143,9 @@ public class MainView extends AppLayout {
     	
     	else {
     		return new Tab[] {
-    			createTab("Coger Cita", solicitarCita.class),
-    	        createTab("Informes", InformesUsuario.class),
-    	        createTab("Ver Citas", VerPacientes.class),
-    	        createTab("Citas del día", CitasDelDia.class),
-      	        createTab("Citas Pendientes", CitasPendientes.class),
-      	        createTab("Informes Pacientes", InformesPacientes.class),
-      	        createTab("Ver Pacientes", VerPacientes.class),
       	        createTab("Estadisticas", PruebaEstadistica.class),
       	        createTab("Crear Usuario", createUser.class),
+      	        createTab("Gestionar Centros", crudCentro.class),
     		};
     	}
         

@@ -15,7 +15,7 @@ public class Sanitario{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "id")
-	private int idSanitario;
+	private int id;
 	@JoinColumn (name = "idTrabajador")
 	@OneToOne
 	private Trabajador trabajador;
@@ -33,6 +33,9 @@ public class Sanitario{
 		this.trabajador = trabajador;
 		this.especialidad = especialidad;
 		this.tipo = tipo;
+	}
+	public int getId() {
+		return id;
 	}
 	
 	public Trabajador getTrabajador(){
