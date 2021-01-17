@@ -197,6 +197,7 @@ public class solicitarCita extends VerticalLayout{
        
        saveButton.addClickListener(event -> { 
        	if (binder.validate().isOk()) {
+       		cita.setImporte(0);
        		Notification.show("La cita ha sido creada");
        		repoCita.save(cita);
        		//UI.getCurrent().navigate("coger-cita");
