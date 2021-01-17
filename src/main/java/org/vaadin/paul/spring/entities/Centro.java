@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -28,11 +29,11 @@ public class Centro {
 	private String telefono;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(targetEntity=Especialidad.class)
+	@ManyToMany(targetEntity=Especialidad.class)
 	private List<Especialidad> especialidades;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(targetEntity=User.class)
+	@ManyToMany(targetEntity=User.class)
 	private List<User> usuarios;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)

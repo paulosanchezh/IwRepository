@@ -34,6 +34,9 @@ public class Sanitario{
 		this.especialidad = especialidad;
 		this.tipo = tipo;
 	}
+	public int getId() {
+		return id;
+	}
 	
 	public Trabajador getTrabajador(){
 		return trabajador;
