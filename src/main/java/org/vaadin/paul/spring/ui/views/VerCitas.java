@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.vaadin.flow.component.Text;
@@ -27,17 +28,23 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
+import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
+import com.vaadin.flow.data.value.HasValueChangeMode;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
 import org.vaadin.paul.spring.app.security.SecurityUtils;
@@ -51,24 +58,95 @@ public class VerCitas extends VerticalLayout {
 	private Grid<Cita> grid;
 	private final UserRepository repousuario;
 	private final CitaRepository repo;
-	private final CentroRepository repocentro;
 	User user = (User) SecurityUtils.getAuthenticatedUser();
+
+	private DatePicker filtrofecha = new DatePicker("Fecha cita");
+	private TimePicker filtrohora = new TimePicker("Hora cita");
+	
 	
 
-	public VerCitas(UserRepository repousuario, CitaRepository repo, CentroRepository repocentro) {
+	public VerCitas(UserRepository repousuario, CitaRepository repo) {
 		this.repo = repo;
 		this.repousuario = repousuario;
 		this.grid = new Grid<>();
-		this.repocentro = repocentro;
 		Button crearcitabutton = new Button("Coger cita");
 		H1 h = new H1(this.user.getNombreyApellidos());
-		this.grid.addColumn(Cita::getNombreyApellidosSanitario, "Sanitario"
-				+ " ").setHeader("Sanitario");
-		this.grid.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
-		this.grid.addColumn(Cita::getHora, "Hora").setHeader("Hora");
-		this.grid.addColumn(Cita::getCentroString, "Centro").setHeader("Centro");
-		this.grid.addColumn(Cita::getConfirmadaString, "Confirmada").setHeader("Confirmada");
+		
 		Binder<Cita> binder = new Binder<>(Cita.class);
+		
+		ListDataProvider<Cita> dataProvider = new ListDataProvider<Cita>(listcitas());
+		
+		this.grid.setDataProvider(dataProvider);
+		
+		HeaderRow filterRow = grid.appendHeaderRow();
+		
+		Grid.Column<Cita> SanitarioColumn = this.grid.addColumn(Cita::getNombreyApellidosSanitario, "Sanitario" + " ").setHeader("Sanitario");
+		Grid.Column<Cita> FechaColumn = this.grid.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
+		Grid.Column<Cita> HoraColumn = this.grid.addColumn(Cita::getHora, "Hora").setHeader("Hora");
+		Grid.Column<Cita> CentroColumn = this.grid.addColumn(Cita::getCentroString, "Centro").setHeader("Centro");
+		Grid.Column<Cita> ConfirmadaColumn = this.grid.addColumn(Cita::getConfirmadaString, "Confirmada").setHeader("Confirmada");
+		
+		//Filtro Sanitario
+		TextField SanitarioField = new TextField();
+		SanitarioField.addValueChangeListener(event -> 
+		dataProvider.addFilter(
+		        cita -> StringUtils.containsIgnoreCase(cita.getNombreyApellidosSanitario(),SanitarioField.getValue())));
+
+		SanitarioField.setValueChangeMode(ValueChangeMode.EAGER);
+
+		filterRow.getCell(SanitarioColumn).setComponent(SanitarioField);
+		SanitarioField.setSizeFull();
+		SanitarioField.setPlaceholder("Filter");
+		
+		//filtro Fecha
+		
+		TextField FechaField = new TextField();
+		FechaField.addValueChangeListener(event -> 
+		dataProvider.addFilter(
+		        cita -> StringUtils.containsIgnoreCase(cita.getFecha().toString(),FechaField.getValue())));
+
+		 FechaField.setValueChangeMode(ValueChangeMode.EAGER);
+
+		filterRow.getCell(FechaColumn).setComponent(FechaField);
+		FechaField.setSizeFull();
+		FechaField.setPlaceholder("Filter");
+		
+		//Filtro Hora
+		TextField HoraField = new TextField();
+		HoraField.addValueChangeListener(event -> 
+		dataProvider.addFilter(
+		        cita -> StringUtils.containsIgnoreCase(cita.getHora().toString(),HoraField.getValue())));
+
+		 HoraField.setValueChangeMode(ValueChangeMode.EAGER);
+
+		filterRow.getCell(HoraColumn).setComponent(HoraField);
+		HoraField.setSizeFull();
+		HoraField.setPlaceholder("Filter");
+		
+		//Filtro Centro
+		TextField CentroField = new TextField();
+		CentroField.addValueChangeListener(event -> 
+		dataProvider.addFilter(
+				cita -> StringUtils.containsIgnoreCase(cita.getCentroString(),CentroField.getValue())));
+
+		CentroField.setValueChangeMode(ValueChangeMode.EAGER);
+
+		filterRow.getCell(CentroColumn).setComponent(CentroField);
+		CentroField.setSizeFull();
+		CentroField.setPlaceholder("Filter");
+		
+		//Filtro confirmada
+		TextField ConfirmadaField = new TextField();
+		ConfirmadaField.addValueChangeListener(event -> 
+		dataProvider.addFilter(
+				        cita -> StringUtils.containsIgnoreCase(cita.getConfirmadaString(),ConfirmadaField.getValue())));
+
+		ConfirmadaField.setValueChangeMode(ValueChangeMode.EAGER);
+
+		filterRow.getCell(ConfirmadaColumn).setComponent(ConfirmadaField);
+		ConfirmadaField.setSizeFull();
+		ConfirmadaField.setPlaceholder("Filter");
+		
 		
 		grid.addColumn(new ComponentRenderer<>(cita -> { 
 			
@@ -153,6 +231,9 @@ public class VerCitas extends VerticalLayout {
 				cancelarbutton.setEnabled(false);
 			
 			cancelarbutton.addClickListener(event ->{
+				eliminarcita(cita);
+				Notification.show("La cita ha sido cancelada");
+				listcitas();
 				
 			});
 			
@@ -172,14 +253,19 @@ public class VerCitas extends VerticalLayout {
 		add(grid);
 		add(crearcitabutton);
 		
+		
 	}
 
-	private void listcitas() {
-		grid.setItems(repo.findByPaciente(repousuario.findByid(this.user.getId())));
+	private Collection<Cita> listcitas() {
+		return repo.findByPaciente(repousuario.findByid(this.user.getId()));
 	}
 	
 	private Trabajador listTrabajador(Cita cita) {
 		return cita.getSanitario().getTrabajador();
+	}
+	
+	private void eliminarcita(Cita c) {
+		repo.deleteById(c.getId());
 	}
 	
 }
