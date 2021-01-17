@@ -53,4 +53,8 @@ public class Sanitario{
 	public void setEspecialidad(Especialidad especialidad) {
 		this.especialidad = especialidad;
 	}
+	
+	public int getid() {
+		return id;
+	}
 };
