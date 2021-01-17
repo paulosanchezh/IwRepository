@@ -109,7 +109,7 @@ public class Cita {
 	}
 	
 	public String getNombreyApellidosSanitario() {
-		return sanitario.getTrabajador().getusuario().getNombreyApellidos();
+		return sanitario.getTrabajador().getUser().getNombreyApellidos();
 	}
 	
 	public boolean getConfirmada() {

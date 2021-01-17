@@ -1,3 +1,4 @@
+
 package org.vaadin.paul.spring.ui.views;
 
 import java.awt.Window;

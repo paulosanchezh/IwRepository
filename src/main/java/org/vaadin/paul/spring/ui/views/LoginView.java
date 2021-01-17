@@ -35,12 +35,10 @@ public class LoginView extends VerticalLayout  {
 	public LoginView(AuthenticationManager authenticationManager, CustomRequestCache requestCache) {
 		this.authenticationManager = authenticationManager;
 		this.requestCache = requestCache;
-		
 		//login.setAction("login");
 		login.setOpened(true);
 		login.setTitle("Centro sanitario login");
 		login.setDescription("Pagina de logueo");
-		
 		login.addLoginListener(e -> { // 
             try {
             	// try to authenticate with given credentials, should always return not null or throw an {@link AuthenticationException}

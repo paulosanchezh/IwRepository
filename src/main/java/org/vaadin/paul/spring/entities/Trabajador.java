@@ -57,7 +57,9 @@ public class Trabajador{
         this.fechaContrato = fechaContrato;
     }
 	
- 
+	public int getId() {
+		return id;
+	}
 
     public float getSalario() {
 		return this.salario;
@@ -75,7 +77,7 @@ public class Trabajador{
 		this.fechaContrato = fechaContrato;
     }
     
-    public User getusuario() {
+    public User getUser() {
     	return user;
     }
     
