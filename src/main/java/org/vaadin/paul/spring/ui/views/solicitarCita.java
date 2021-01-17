@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.access.annotation.Secured;
+import org.vaadin.paul.spring.MainView;
 import org.vaadin.paul.spring.app.security.SecurityUtils;
 import org.vaadin.paul.spring.entities.Centro;
 import org.vaadin.paul.spring.entities.Cita;
@@ -32,9 +34,13 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Route("cita")
+@Route(value = "cogercita", layout = MainView.class)
+@PageTitle("Coger Cita")
+@Secured({"ROLE_USER"})
+
 public class solicitarCita extends VerticalLayout{
 
 	private ComboBox<Especialidad> cbEspecialidad = new ComboBox<>();
@@ -120,7 +126,7 @@ public class solicitarCita extends VerticalLayout{
   		    		for(Trabajador trabajador : lTrabajadores) {
   		    			sanitario = repoSanitario.findByTrabajador(trabajador);
   		    			if (sanitario.getEspecialidad().getNombre().equals(event1.getValue().getNombre())) {
-  		    				lUser.add(trabajador.getusuario());
+  		    				lUser.add(trabajador.getUser());
   		    			}	
   		    		}
   		    		cbUsuario.setLabel("Medico");

@@ -31,11 +31,6 @@ public class Centro {
 	@OneToMany(targetEntity=Especialidad.class)
 	private List<Especialidad> especialidades;
 	
-//	@JoinColumn(name = "idEspecialidad")
-//	@OneToOne
-//	Especialidad especialidad;
-	
-	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=User.class)
 	private List<User> usuarios;
@@ -49,6 +44,16 @@ public class Centro {
 	private Localidad localidad;
 	
 	public Centro () {}
+	
+	public Centro(int id, String nombre, String telefono, List<Especialidad> especialidades, List<User> usuarios, List<Trabajador> trabajadores, Localidad localidad) {
+		this.especialidades = especialidades;
+		this.id = id;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.usuarios = usuarios;
+		this.trabajadores = trabajadores;
+		this.localidad = localidad;
+	}
 	
 	public int getId() {
 		return id;
