@@ -72,7 +72,7 @@ public class VerPacientes extends VerticalLayout {
 		TextField PacienteField = new TextField();
 		PacienteField.addValueChangeListener(event -> 
 		dataProvider.addFilter(
-		        cita -> StringUtils.containsIgnoreCase(cita.getNombreyApellidosSanitario(),PacienteField.getValue())));
+		        cita -> StringUtils.containsIgnoreCase(cita.getNombreyApellidospaciente(),PacienteField.getValue())));
 
 		PacienteField.setValueChangeMode(ValueChangeMode.EAGER);
 
@@ -99,71 +99,72 @@ public class VerPacientes extends VerticalLayout {
 				Button historialbutton = new Button("Ver Todas Las Citas");
 				Grid<Cita> grid2 = new Grid<>();
 				
+				ListDataProvider<Cita> dataProviderinformes = new ListDataProvider<Cita>(listcitas(cita.getPaciente()));
+				Dialog dialog = new Dialog();
+				grid2.setDataProvider(dataProviderinformes);
+				
+				HeaderRow filterRow2 = grid2.appendHeaderRow();
+				
+				Grid.Column<Cita> Paciente2Column = grid2.addColumn(Cita::getNombreyApellidospaciente, "Nombres y Apellidos").setHeader("Nombre y Apellidos");
+				Grid.Column<Cita> Fecha2Column = grid2.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
+				
+				
+				//Filtro Sanitario
+				TextField Paciente2Field = new TextField();
+				Paciente2Field.addValueChangeListener(event1 -> 
+				dataProviderinformes.addFilter(
+				        cita2 -> StringUtils.containsIgnoreCase(cita2.getNombreyApellidosSanitario(),Paciente2Field.getValue())));
+
+				Paciente2Field.setValueChangeMode(ValueChangeMode.EAGER);
+
+				filterRow2.getCell(Paciente2Column).setComponent(Paciente2Field);
+				Paciente2Field.setSizeFull();
+				Paciente2Field.setPlaceholder("Filter");
+				
+				//filtro Fecha
+				
+				TextField Fecha2Field = new TextField();
+				Fecha2Field.addValueChangeListener(event1 -> 
+				dataProviderinformes.addFilter(
+				        cita2 -> StringUtils.containsIgnoreCase(cita2.getFecha().toString(),Fecha2Field.getValue())));
+				
+				Fecha2Field.setValueChangeMode(ValueChangeMode.EAGER);
+
+				filterRow2.getCell(Fecha2Column).setComponent(Fecha2Field);
+				Fecha2Field.setSizeFull();
+				Fecha2Field.setPlaceholder("Filter");
+				
+				grid2.addColumn(new ComponentRenderer<>(cita3 -> { 
+					 Informe informe = cita3.getInforme();
+					 Button confirmbutton = new Button(" Ver Informe");
+					 confirmbutton.addClickListener(event2 -> { 
+						 Accordion Datos_informe = new Accordion();
+						 
+						 H1 h = new H1(cita3.getNombreyApellidospaciente());
+						 Dialog dialog2 = new Dialog();
+						 dialog2.add(h, Datos_informe);
+						 dialog2.add(new Button("Close", e -> dialog2.close()) );
+						 
+						 Datos_informe.add("Porque", new Span(informe.getPorQue()));
+						 Datos_informe.add("Diagnostico", new Span(informe.getDiagnostico()));
+						 Datos_informe.add("Enfermedad Actual", new Span(informe.getEnfermedadActual()));
+						 Datos_informe.add("Intervencion", new Span(informe.getIntervencion()));
+						 Datos_informe.add("Medicamentos", new Span(informe.getMedicamentos()));
+						 Datos_informe.add("Plan Clinico", new Span(informe.getPlanClinico()));
+						 
+						 dialog2.setModal(true);
+						 dialog2.setDraggable(true); 
+						 dialog2.setResizable(false);
+						 dialog2.setWidth("1200px"); 
+						 dialog2.setHeight("1000px");
+						 dialog2.open();
+				 	}); 
+					 return confirmbutton;
+				 }));
+				
+				
 				 
 				historialbutton.addClickListener(event ->{
-					ListDataProvider<Cita> dataProviderinformes = new ListDataProvider<Cita>(listcitas(cita.getPaciente()));
-					Dialog dialog = new Dialog();
-					grid2.setDataProvider(dataProviderinformes);
-					
-					HeaderRow filterRow2 = grid2.appendHeaderRow();
-					
-					Grid.Column<Cita> Paciente2Column = grid2.addColumn(Cita::getNombreyApellidospaciente, "Nombres y Apellidos").setHeader("Nombre y Apellidos");
-					Grid.Column<Cita> Fecha2Column = grid2.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
-					
-					
-					//Filtro Sanitario
-					TextField Paciente2Field = new TextField();
-					Paciente2Field.addValueChangeListener(event1 -> 
-					dataProviderinformes.addFilter(
-					        cita2 -> StringUtils.containsIgnoreCase(cita2.getNombreyApellidosSanitario(),Paciente2Field.getValue())));
-
-					Paciente2Field.setValueChangeMode(ValueChangeMode.EAGER);
-
-					filterRow2.getCell(Paciente2Column).setComponent(Paciente2Field);
-					Paciente2Field.setSizeFull();
-					Paciente2Field.setPlaceholder("Filter");
-					
-					//filtro Fecha
-					
-					TextField Fecha2Field = new TextField();
-					Fecha2Field.addValueChangeListener(event1 -> 
-					dataProviderinformes.addFilter(
-					        cita2 -> StringUtils.containsIgnoreCase(cita2.getFecha().toString(),Fecha2Field.getValue())));
-					
-					Fecha2Field.setValueChangeMode(ValueChangeMode.EAGER);
-
-					filterRow2.getCell(Fecha2Column).setComponent(Fecha2Field);
-					Fecha2Field.setSizeFull();
-					Fecha2Field.setPlaceholder("Filter");
-					
-					grid2.addColumn(new ComponentRenderer<>(cita3 -> { 
-						 Informe informe = cita3.getInforme();
-						 Button confirmbutton = new Button(" Ver Informe");
-						 confirmbutton.addClickListener(event2 -> { 
-							 Accordion Datos_informe = new Accordion();
-							 
-							 H1 h = new H1(cita3.getNombreyApellidospaciente());
-							 Dialog dialog2 = new Dialog();
-							 dialog2.add(h, Datos_informe);
-							 dialog2.add(new Button("Close", e -> dialog2.close()) );
-							 
-							 Datos_informe.add("Porque", new Span(informe.getPorQue()));
-							 Datos_informe.add("Diagnostico", new Span(informe.getDiagnostico()));
-							 Datos_informe.add("Enfermedad Actual", new Span(informe.getEnfermedadActual()));
-							 Datos_informe.add("Intervencion", new Span(informe.getIntervencion()));
-							 Datos_informe.add("Medicamentos", new Span(informe.getMedicamentos()));
-							 Datos_informe.add("Plan Clinico", new Span(informe.getPlanClinico()));
-							 
-							 dialog2.setModal(true);
-							 dialog2.setDraggable(true); 
-							 dialog2.setResizable(false);
-							 dialog2.setWidth("1200px"); 
-							 dialog2.setHeight("1000px");
-							 dialog2.open();
-					 	}); 
-						 return confirmbutton;
-					 }));
-					
 					dialog.setModal(true);
 					dialog.setDraggable(true); 
 					dialog.setResizable(false);
@@ -173,6 +174,7 @@ public class VerPacientes extends VerticalLayout {
 					dialog.add(grid2);
 					dialog.add(new Button("Close", e -> dialog.close()) );
 					dialog.open();
+					
 				});
 				return historialbutton;
 			}));

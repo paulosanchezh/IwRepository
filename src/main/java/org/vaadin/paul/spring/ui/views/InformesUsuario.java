@@ -26,6 +26,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -156,17 +157,36 @@ public class InformesUsuario extends VerticalLayout{
 		 return confirmbutton;
 		  }));
 		
-		grid.addColumn(new ComponentRenderer<>(informe -> {
+		grid.addColumn(new ComponentRenderer<>(cita -> {
 			Button facturabutton = new Button("Factura"); 
 			
-			Dialog dialog = new Dialog();
-			dialog.add(new Button("Close", e -> dialog.close()) ); 
+			Dialog dialog = new Dialog(); 
 			dialog.setModal(true);
 			dialog.setDraggable(true); 
 			dialog.setResizable(false);
 			dialog.setWidth("1200px"); 
 			dialog.setHeight("1000px");
+			Label lugar = new Label();
+			 Label paciente = new Label();
+			 Label sanitario = new Label();
+			 Label importe = new Label();
+			 Label intervencion = new Label();
+			 VerticalLayout vlugar = new VerticalLayout(lugar);
+			 VerticalLayout vpaciente = new VerticalLayout(paciente);
+			 VerticalLayout vsanitario = new VerticalLayout(sanitario);
+			 VerticalLayout vimporte = new VerticalLayout(importe);
+			 VerticalLayout vintervencion = new VerticalLayout(intervencion);
+			 
+			 lugar.setText(cita.getCentroString() + " , " + cita.getCentro().getUbicacion().getNombre() + "  tlf: " + cita.getCentro().getTelefono());
+			 paciente.setText("Paciente: " + cita.getNombreyApellidospaciente());
+			 sanitario.setText("Sanitario: " + cita.getNombreyApellidosSanitario());
+			 importe.setText("Importe: " + cita.getImporte());
+			 intervencion.setText("Intervencion: " + cita.getInforme().getIntervencion());
+			 
+			 dialog.add(vlugar, vpaciente, vsanitario, vimporte, vintervencion);
+			 dialog.add(new Button("Close", e -> dialog.close()) );
 			facturabutton.addClickListener(event -> { 
+				 
 				 
 				 dialog.open();
 		 	}); 

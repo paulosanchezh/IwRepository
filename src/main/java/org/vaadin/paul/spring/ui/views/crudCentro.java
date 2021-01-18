@@ -7,13 +7,17 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.Binder.Binding;
+import com.vaadin.flow.data.provider.DataProviderListener;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -49,8 +53,38 @@ public class crudCentro extends VerticalLayout {
 	public crudCentro(CentroRepository repoCentro, TrabajadorRepository repoTrabajador,
 			UserRepository repoUser, EspecialidadRepository repoEspecialidad) {
 		gCentro = new Grid<>();
-		gCentro.addColumn(Centro::getNombre, "Nombre" + " ").setHeader("Nombre");
-		gCentro.addColumn(Centro::getTelefono, "Telefono" + " ").setHeader("Telefono");
+		ListDataProvider<Centro> dataProvider = new ListDataProvider<Centro>(repoCentro.findAll());
+		
+		HeaderRow filterRow = gCentro.appendHeaderRow();
+		
+		Grid.Column<Centro> NombreColumn = gCentro.addColumn(Centro::getNombre, "Nombre" + " ").setHeader("Nombre");
+		Grid.Column<Centro> TlfColumn = gCentro.addColumn(Centro::getTelefono, "Telefono" + " ").setHeader("Telefono");
+		
+		
+		TextField NombreField = new TextField();
+		NombreField.addValueChangeListener(event -> 
+		dataProvider.addFilter(
+		        centro -> StringUtils.containsIgnoreCase(centro.getNombre(),NombreField.getValue())));
+
+		NombreField.setValueChangeMode(ValueChangeMode.EAGER);
+
+		filterRow.getCell(NombreColumn).setComponent(NombreField);
+		NombreField.setSizeFull();
+		NombreField.setPlaceholder("Filter");
+		
+
+		
+		TextField tlfField = new TextField();
+		tlfField.addValueChangeListener(event -> 
+		dataProvider.addFilter(
+		        centro -> StringUtils.containsIgnoreCase(centro.getTelefono(),tlfField.getValue())));
+
+		 tlfField.setValueChangeMode(ValueChangeMode.EAGER);
+
+		filterRow.getCell(TlfColumn).setComponent(tlfField);
+		tlfField.setSizeFull();
+		tlfField.setPlaceholder("Filter");
+		
 		
 		gCentro.addColumn(new ComponentRenderer<>(centro -> {
 			Button especialidadButton = new Button("Especialidades"); 
@@ -197,7 +231,7 @@ public class crudCentro extends VerticalLayout {
 			return addTrabajadorButton;	
 		}));
 		
-gCentro.addColumn(new ComponentRenderer<>(centro3 -> {
+		gCentro.addColumn(new ComponentRenderer<>(centro3 -> {
 			
 			Button editButtonCentro = new Button("Editar"); 
 			editButtonCentro.addClickListener(event -> {
@@ -264,7 +298,7 @@ gCentro.addColumn(new ComponentRenderer<>(centro3 -> {
 			return deleteButtonCentro;	
 		}));
 		
-		gCentro.setItems(repoCentro.findAll());
+		gCentro.setDataProvider(dataProvider);
 		add(gCentro);
 		
 		Button addCentro = new Button("Crear centro");
