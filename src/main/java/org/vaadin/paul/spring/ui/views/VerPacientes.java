@@ -78,7 +78,7 @@ public class VerPacientes extends VerticalLayout {
 
 		filterRow.getCell(PacienteColumn).setComponent(PacienteField);
 		PacienteField.setSizeFull();
-		PacienteField.setPlaceholder("Filter");
+		PacienteField.setPlaceholder("Paciente");
 		
 		//filtro Fecha
 		
@@ -92,7 +92,7 @@ public class VerPacientes extends VerticalLayout {
 
 			filterRow.getCell(FechaColumn).setComponent(FechaField);
 			FechaField.setSizeFull();
-			FechaField.setPlaceholder("Filter");
+			FechaField.setPlaceholder("Fecha");
 			
 		
 			grid.addColumn(new ComponentRenderer<>(cita -> { 

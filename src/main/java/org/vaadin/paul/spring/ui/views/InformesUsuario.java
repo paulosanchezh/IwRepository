@@ -80,7 +80,7 @@ public class InformesUsuario extends VerticalLayout{
 
 				filterRow.getCell(SanitarioColumn).setComponent(SanitarioField);
 				SanitarioField.setSizeFull();
-				SanitarioField.setPlaceholder("Filter");
+				SanitarioField.setPlaceholder("Sanitario");
 				
 				//filtro Fecha
 				
@@ -93,7 +93,7 @@ public class InformesUsuario extends VerticalLayout{
 
 				filterRow.getCell(FechaColumn).setComponent(FechaField);
 				FechaField.setSizeFull();
-				FechaField.setPlaceholder("Filter");
+				FechaField.setPlaceholder("Fecha");
 				
 				//Filtro Hora
 				TextField HoraField = new TextField();
@@ -105,7 +105,7 @@ public class InformesUsuario extends VerticalLayout{
 
 				filterRow.getCell(HoraColumn).setComponent(HoraField);
 				HoraField.setSizeFull();
-				HoraField.setPlaceholder("Filter");
+				HoraField.setPlaceholder("Hora");
 				
 				//Filtro Centro
 				TextField CentroField = new TextField();
@@ -117,7 +117,7 @@ public class InformesUsuario extends VerticalLayout{
 
 				filterRow.getCell(CentroColumn).setComponent(CentroField);
 				CentroField.setSizeFull();
-				CentroField.setPlaceholder("Filter");
+				CentroField.setPlaceholder("Centro");
 		
 		grid.addColumn(new ComponentRenderer<>(cita -> { 
 			 Informe informe = cita.getInforme();

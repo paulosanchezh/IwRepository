@@ -116,6 +116,9 @@ public class solicitarCita extends VerticalLayout{
        });
        
        add(cbCentro);
+       add(cbEspecialidad);
+       add(cbUsuario);
+       
        cbCentro.setLabel("Centro");
        cbCentro.addValueChangeListener(event -> {
          	 if (event.getValue() != null) {
@@ -200,9 +203,6 @@ public class solicitarCita extends VerticalLayout{
 			.bind(Cita::getHora, Cita::setHora);
        add(hora);
        
-       
-       add(cbEspecialidad);
-       add(cbUsuario);
        cita.setPaciente((User) SecurityUtils.getAuthenticatedUser());
        cita.setConfirmada(false);
        

@@ -97,7 +97,7 @@ public class VerCitas extends VerticalLayout {
 
 		filterRow.getCell(SanitarioColumn).setComponent(SanitarioField);
 		SanitarioField.setSizeFull();
-		SanitarioField.setPlaceholder("Filter");
+		SanitarioField.setPlaceholder("Sanitario");
 		
 		//filtro Fecha
 		
@@ -110,7 +110,7 @@ public class VerCitas extends VerticalLayout {
 
 		filterRow.getCell(FechaColumn).setComponent(FechaField);
 		FechaField.setSizeFull();
-		FechaField.setPlaceholder("Filter");
+		FechaField.setPlaceholder("Fecha");
 		
 		//Filtro Hora
 		TextField HoraField = new TextField();
@@ -122,7 +122,7 @@ public class VerCitas extends VerticalLayout {
 
 		filterRow.getCell(HoraColumn).setComponent(HoraField);
 		HoraField.setSizeFull();
-		HoraField.setPlaceholder("Filter");
+		HoraField.setPlaceholder("Hora");
 		
 		//Filtro Centro
 		TextField CentroField = new TextField();
@@ -134,7 +134,7 @@ public class VerCitas extends VerticalLayout {
 
 		filterRow.getCell(CentroColumn).setComponent(CentroField);
 		CentroField.setSizeFull();
-		CentroField.setPlaceholder("Filter");
+		CentroField.setPlaceholder("Centro");
 		
 		//Filtro confirmada
 		TextField ConfirmadaField = new TextField();
@@ -146,7 +146,7 @@ public class VerCitas extends VerticalLayout {
 
 		filterRow.getCell(ConfirmadaColumn).setComponent(ConfirmadaField);
 		ConfirmadaField.setSizeFull();
-		ConfirmadaField.setPlaceholder("Filter");
+		ConfirmadaField.setPlaceholder("Confirmada");
 		
 		
 		grid.addColumn(new ComponentRenderer<>(cita -> { 

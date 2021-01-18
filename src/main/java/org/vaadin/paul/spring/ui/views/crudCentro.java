@@ -69,7 +69,7 @@ public class crudCentro extends VerticalLayout {
 
 		filterRow.getCell(NombreColumn).setComponent(NombreField);
 		NombreField.setSizeFull();
-		NombreField.setPlaceholder("Filter");
+		NombreField.setPlaceholder("Nombre");
 		
 
 		
@@ -82,7 +82,7 @@ public class crudCentro extends VerticalLayout {
 
 		filterRow.getCell(TlfColumn).setComponent(tlfField);
 		tlfField.setSizeFull();
-		tlfField.setPlaceholder("Filter");
+		tlfField.setPlaceholder("Telefono");
 		
 		
 		gCentro.addColumn(new ComponentRenderer<>(centro -> {
