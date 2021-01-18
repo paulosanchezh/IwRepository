@@ -5,12 +5,8 @@ import java.util.List;
 
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
-import org.vaadin.paul.spring.entities.Cita;
 import org.vaadin.paul.spring.entities.Especialidad;
 import org.vaadin.paul.spring.entities.Sanitario;
-import org.vaadin.paul.spring.entities.Trabajador;
-import org.vaadin.paul.spring.repositories.CentroRepository;
-import org.vaadin.paul.spring.repositories.CitaRepository;
 import org.vaadin.paul.spring.repositories.EspecialidadRepository;
 import org.vaadin.paul.spring.repositories.SanitarioRepository;
 
@@ -75,8 +71,6 @@ public class sanitarioDemandados extends VerticalLayout{
         series.setPlotOptions(rainfallOptions);
         series.setName("Profesionales Sanitarios");
         
-        SeriesTooltip errorTooltip = new SeriesTooltip();
-        
         conf.addSeries(series);
 		
 		conf.setSubTitle("");
@@ -116,8 +110,6 @@ public class sanitarioDemandados extends VerticalLayout{
         rainfallOptions2.setTooltip(rainfallTooltip);
         series2.setPlotOptions(rainfallOptions);
         series2.setName("Especialidades");
-        
-        SeriesTooltip errorTooltip2 = new SeriesTooltip();
         
         conf2.addSeries(series2);
 		
