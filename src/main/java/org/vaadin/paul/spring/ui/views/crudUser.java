@@ -132,17 +132,17 @@ public class crudUser extends VerticalLayout{
 		
 		
 		
-//		gUser.addColumn(new ComponentRenderer<>(userDelete -> {
-//			Button deleteButton = new Button("Eliminar"); 
-//			deleteButton.addThemeVariants(ButtonVariant.LUMO_ERROR);
-//			deleteButton.addClickListener(delete -> { 
-//				repoUser.delete(userDelete);
+		gUser.addColumn(new ComponentRenderer<>(userDelete -> {
+			Button deleteButton = new Button("Eliminar"); 
+			deleteButton.addThemeVariants(ButtonVariant.LUMO_ERROR);
+			deleteButton.addClickListener(delete -> { 
+				repoUser.delete(userDelete);
 				
-//				dataProvider.getitems().remove(userDelete);
-//		 		dataProvider.refreshAll();
-//		}); 
-//			return deleteButton;	
-//		}));
+				dataProvider.getItems().remove(userDelete);
+		 		dataProvider.refreshAll();
+		}); 
+			return deleteButton;	
+		}));
 		
 		gUser.addColumn(new ComponentRenderer<>(usuario -> {
 			Button editButton = new Button("Editar"); 
