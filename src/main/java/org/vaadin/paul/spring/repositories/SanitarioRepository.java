@@ -15,6 +15,8 @@ public interface SanitarioRepository extends JpaRepository<Sanitario, Integer>{
 	
 	@Query(value = "SELECT * FROM sanitario WHERE id_trabajador = ?1", nativeQuery = true )
 	Sanitario findByTrabajadorId(int id);
-
+	
+	@Query(value = "SELECT count(*) FROM cita WHERE id_sanitario = ?1", nativeQuery = true)
+	int countBySanitario(int id);
 }
 

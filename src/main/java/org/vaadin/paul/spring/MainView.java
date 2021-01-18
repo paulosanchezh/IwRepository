@@ -146,8 +146,8 @@ public class MainView extends AppLayout {
       	        //createTab("Estadisticas", PruebaEstadistica.class),
       	        createTab("Crear Usuario", createUser.class),
       	        createTab("Gestionar Centros", crudCentro.class),
-      	        createTab("Gestionar Usuarios", crudUser.class)
-      	        
+      	        createTab("Gestionar Usuarios", crudUser.class),
+      	        createTab("Profesionales demandados", sanitarioDemandados.class),
     		};
     	}
         

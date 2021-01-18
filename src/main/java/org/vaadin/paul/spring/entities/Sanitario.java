@@ -38,6 +38,10 @@ public class Sanitario{
 		return id;
 	}
 	
+	public String getNombreyApellidos() {
+		return trabajador.getNombre();
+	}
+	
 	public Trabajador getTrabajador(){
 		return trabajador;
 	}

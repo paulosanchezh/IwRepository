@@ -17,4 +17,6 @@ public interface EspecialidadRepository extends JpaRepository<Especialidad, Inte
 	@Query(value = "SELECT e.* FROM especialidad e WHERE NOT EXISTS ( SELECT c.especialidades_id FROM centro_especialidades c WHERE e.id = c.especialidades_id )" , nativeQuery = true)
 	List<Especialidad> findByEspecialidadSinCentro();
 	
+	@Query(value = "SELECT COUNT(*) FROM cita c where c.id_sanitario IN (SELECT s.id FROM sanitario s where s.id_especialidad = ?1)", nativeQuery = true)
+	int countByEspecialidad(int id);
 }
