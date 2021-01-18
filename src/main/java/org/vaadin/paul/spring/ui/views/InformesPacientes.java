@@ -73,7 +73,7 @@ public class InformesPacientes extends FormLayout{
 		
 		this.grid.setDataProvider(dataProvider);
 		
-		Grid.Column<Cita> SanitarioColumn = this.grid.addColumn(Cita::getNombreyApellidosSanitario, "Sanitario" + " ").setHeader("Sanitario");
+		Grid.Column<Cita> SanitarioColumn = this.grid.addColumn(Cita::getNombreyApellidospaciente, "Paciente").setHeader("Paciente");
 		Grid.Column<Cita> FechaColumn = this.grid.addColumn(Cita::getFecha, "Fecha").setHeader("Fecha");
 		Grid.Column<Cita> HoraColumn = this.grid.addColumn(Cita::getHora, "Hora").setHeader("Hora");
 		Grid.Column<Cita> CentroColumn = this.grid.addColumn(Cita::getCentroString, "Centro").setHeader("Centro");
@@ -84,7 +84,7 @@ public class InformesPacientes extends FormLayout{
 				TextField SanitarioField = new TextField();
 				SanitarioField.addValueChangeListener(event -> 
 				dataProvider.addFilter(
-				        cita -> StringUtils.containsIgnoreCase(cita.getNombreyApellidosSanitario(),SanitarioField.getValue())));
+				        cita -> StringUtils.containsIgnoreCase(cita.getNombreyApellidospaciente(),SanitarioField.getValue())));
 
 				SanitarioField.setValueChangeMode(ValueChangeMode.EAGER);
 

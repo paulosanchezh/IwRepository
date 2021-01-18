@@ -29,4 +29,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	
 	@Query(value = "Select * From Cita Where id_sanitario = ?1 AND id_informe IS NOT NULL", nativeQuery = true)
 	List<Cita> findBySanitarioAndInforme(int sanitario);
+	
+	@Query(value = "SELECT * , max(fecha) FROM cita WHERE id_sanitario = 1 GROUP BY id_paciente", nativeQuery = true)
+	List<Cita> findBySanitarioAndUltimacita(int idsanitario);
 }

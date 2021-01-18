@@ -26,6 +26,7 @@ import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
@@ -49,8 +50,9 @@ public class CitasDelDia<V> extends VerticalLayout {
     TextField diagnostico = new TextField();
     TextField medicamento = new TextField();
     TextField planclinico = new TextField();
-    Button firmar = new Button("Firmar");
+     Button firmar = new Button("Firmar");
 	 Button closebutton = new Button("Close");
+	 NumberField importe = new NumberField("Importe");
 	
 	
 
@@ -114,6 +116,8 @@ public class CitasDelDia<V> extends VerticalLayout {
 
 					VerticalLayout lplanclinico = new VerticalLayout(planclinico);
 					
+					VerticalLayout limporte = new VerticalLayout(importe);
+					
 				    
 				    binder.forField(porque)
 		        	.asRequired("Por que no puede estar vacío")
@@ -142,17 +146,22 @@ public class CitasDelDia<V> extends VerticalLayout {
 				    Informe informe = cita.getInforme();
 			    	binder.setBean(informe);
 				    
-				    dialog.add(lporque, lenfermedad, lintervencion, ldiagnostico, lmedicamento, lplanclinico, firmar, closebutton);
+				    dialog.add(lporque, lenfermedad, lintervencion, ldiagnostico, lmedicamento, lplanclinico,limporte, firmar, closebutton);
 				    firmar.addClickListener(evento -> {
 				    	if (binder.validate().isOk()) {
-				    		informe.setFirma(true);
-				    		informe.setIdCita_(cita);
-				    		repoinformes.save(informe);
+				    		if(importe.getValue() != null) {
+				    			double coste = importe.getValue();
+				    			float fcoste = (float) coste;
+				    			informe.setFirma(true);
+				    			informe.setIdCita_(cita);
+				    			repoinformes.save(informe);
+				    			cita.setInforme(informe);
+				    			cita.setImporte(fcoste);
+				    			repo.save(cita);
+				    			Notification.show("El informe ha sido modificado");
+				    			dialog.close();
+				    		}
 				    	}
-				    	cita.setInforme(informe);
-				    	repo.save(cita);
-				    	Notification.show("El informe ha sido modificado");
-				    	dialog.close();
 				    	
 				    }); 
 				    

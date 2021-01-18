@@ -45,6 +45,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.sql.Delete;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.paul.spring.MainView;
 import org.vaadin.paul.spring.app.security.SecurityUtils;
@@ -149,15 +150,12 @@ public class VerCitas extends VerticalLayout {
 		
 		
 		grid.addColumn(new ComponentRenderer<>(cita -> { 
-			
-			
 			Button modificarbutton = new Button("Modificar");
 			DatePicker fecha = new DatePicker("Fecha cita");
 			TimePicker hora = new TimePicker("Hora cita");
 			Trabajador trabajador = listTrabajador(cita);
 			
 			binder.setBean(cita);
-			
 			 
 			if(cita.getConfirmada())
 				modificarbutton.setEnabled(false);
@@ -216,7 +214,7 @@ public class VerCitas extends VerticalLayout {
 						 Notification.show("La cita ha sido modificada");
 				    		repo.save(cita);
 				    	}
-					 listcitas();
+					 dataProvider.refreshItem(cita);
 					 dialog.close();
 				 });
 				
@@ -233,7 +231,8 @@ public class VerCitas extends VerticalLayout {
 			cancelarbutton.addClickListener(event ->{
 				eliminarcita(cita);
 				Notification.show("La cita ha sido cancelada");
-				listcitas();
+				dataProvider.getItems().remove(cita);
+				dataProvider.refreshAll();
 				
 			});
 			
@@ -249,7 +248,6 @@ public class VerCitas extends VerticalLayout {
 
 	 	}); 
 		
-		listcitas();
 		add(grid);
 		add(crearcitabutton);
 		

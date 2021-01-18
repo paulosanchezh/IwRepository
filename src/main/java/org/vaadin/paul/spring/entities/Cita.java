@@ -135,6 +135,10 @@ public class Cita {
 			return "No";
 	}
 	
+	public Centro getCentro() {
+		return sanitario.getTrabajador().getCentro();
+	}
+	
 	public String getCentroString() {
 		
 		return sanitario.getTrabajador().getCentro().getNombre();
