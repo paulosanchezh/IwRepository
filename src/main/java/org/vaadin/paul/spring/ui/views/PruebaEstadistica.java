@@ -24,7 +24,7 @@ import org.vaadin.paul.spring.entities.Centro;
 import org.vaadin.paul.spring.entities.User;
 
 @Route(value = "PruebaEstadistica", layout=MainView.class)
-@Secured({"ROLE_ADMIN", "ROLE_GESTOR"})
+@Secured({"ROLE_ADMIN"})
 
 public class PruebaEstadistica extends VerticalLayout{
 	

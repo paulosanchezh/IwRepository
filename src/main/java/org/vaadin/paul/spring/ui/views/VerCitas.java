@@ -52,7 +52,7 @@ import org.vaadin.paul.spring.app.security.SecurityUtils;
 
 @Route(value = "ver-citas", layout = MainView.class)
 @PageTitle("Citas")
-@Secured({"ROLE_USER", "ROLE_ADMIN"})
+@Secured({"ROLE_USER"})
 
 public class VerCitas extends VerticalLayout {
 

@@ -45,6 +45,14 @@ public final class SecurityUtils {
 		// Anonymous or no authentication.
 		return null;
 	}
+	
+	//Para mostrar algo que sólo sea visible a cierto roles
+//			if (this.user != null && this.user.getAuthorities().stream()
+//				      .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+//				texto.setText("Visible solo si soy admin");
+//				add(texto);
+//			}
+//		}
 
 	/**
 	 * Tests if the request is an internal framework request. The test consists of

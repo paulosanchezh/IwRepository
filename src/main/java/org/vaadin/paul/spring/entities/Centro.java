@@ -2,6 +2,7 @@ package org.vaadin.paul.spring.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +34,7 @@ public class Centro {
 	private List<Especialidad> especialidades;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(targetEntity=User.class)
+	@ManyToMany(targetEntity=User.class, cascade = CascadeType.REMOVE)
 	private List<User> usuarios;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)

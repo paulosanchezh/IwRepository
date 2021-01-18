@@ -3,6 +3,7 @@ package org.vaadin.paul.spring.entities;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class Cita {
 	private int id;
 	
 	@JoinColumn (name = "idPaciente")
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private User paciente;
 	
 	@JoinColumn (name = "idSanitario")

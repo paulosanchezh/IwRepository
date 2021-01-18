@@ -41,7 +41,7 @@ import com.vaadin.flow.router.Route;
 
 @Route(value = "ver-pacientes", layout = MainView.class)
 @PageTitle("Pacientes")
-@Secured({"ROLE_SANITARIO", "ROLE_ADMIN"})
+@Secured({"ROLE_SANITARIO"})
 
 public class VerPacientes extends VerticalLayout {
 	

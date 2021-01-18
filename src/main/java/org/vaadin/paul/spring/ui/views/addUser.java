@@ -52,6 +52,7 @@ public class addUser extends FormLayout {
         ComboBox<Rol> cRol = new ComboBox<>();
         cRol.setItems(repoRol.findAll());
         cRol.setItemLabelGenerator(Rol::getNombre);
+        cRol.setLabel("Rol");
         
         
         binder.forField(apellidos)
@@ -81,10 +82,10 @@ public class addUser extends FormLayout {
     		.withValidator(telefono -> StringUtils.isNumeric(telefono) == true, "El Teléfono sólo debe contener carácteres numéricos")
     		.bind(User::getTlf, User::setTlf);
         
-//        binder.forField(username)
-//    		.asRequired("El nombre de usuario no puede estar vacío")
-//    		.withValidator(username -> repoUser, "")
-//    		.bind(User::getUsername, User::setUsername);
+        binder.forField(username)
+    		.asRequired("El nombre de usuario no puede estar vacío")
+    		.withValidator(username -> repoUser.findByusername(username) == null, "Este Usuario ya existe, introduzca otro nombre de usuario")
+    		.bind(User::getUsername, User::setUsername);
         
         binder.forField(passwordField)
 			.asRequired("La contraseña no puede estar vacía")
@@ -103,16 +104,16 @@ public class addUser extends FormLayout {
         	}, "Las contraseñas deben coincidir, revise los campos")
 			.bind(User::getPassword, (person, password) -> {} );
         
-//        binder.forField(cRol)
-//        	.asRequired("Debes escoger un Rol")
-//        	.bind(User::getRol, User::setRol);
+        binder.forField(cRol)
+        	.asRequired("Debes escoger un Rol")
+        	.bind(User::getRol, User::setRol);
         
         Label validationStatus = new Label();
         binder.setStatusLabel(validationStatus);
         
         binder.setBean(usuario);
         usuario.setBaja(false);
-        usuario.setUsername(usuario.getDni());
+        //usuario.setUsername(usuario.getDni());
         
         Dialog firstDialog = new Dialog();
 
@@ -140,10 +141,10 @@ public class addUser extends FormLayout {
         add(dni);
         add(direccion);
         add(tlf);
-//        add(username);
+        add(username);
         add(passwordField);
         add(confirmPasswordField);
-//        add(cRol);
+        add(cRol);
         add(saveButton);	
 	}
 }

@@ -39,7 +39,7 @@ import com.vaadin.flow.router.Route;
 
 @Route(value = "informes-usuarios", layout = MainView.class)
 @PageTitle("Informes")
-@Secured({"ROLE_USER", "ROLE_ADMIN"})
+@Secured({"ROLE_USER"})
 
 public class InformesUsuario extends VerticalLayout{
 	

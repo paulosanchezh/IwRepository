@@ -22,7 +22,7 @@ import org.vaadin.paul.spring.MainView;
 import org.vaadin.paul.spring.app.security.SecurityUtils;
 @Route(value = "citas-pendientes", layout = MainView.class)
 @PageTitle("Citas Pendientes")
-@Secured({"ROLE_SANITARIO", "ROLE_ADMIN"})
+@Secured({"ROLE_SANITARIO"})
 
 public class CitasPendientes extends VerticalLayout {
 	private static final long serialVersionUID = 1L;

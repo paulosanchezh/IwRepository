@@ -36,7 +36,7 @@ import com.vaadin.flow.server.VaadinRequest;
 
 @Route(value = "citashoy", layout=MainView.class)
 @PageTitle("Citas de hoy")
-@Secured({"ROLE_SANITARIO", "ROLE_ADMIN"})
+@Secured({"ROLE_SANITARIO"})
 
 public class CitasDelDia<V> extends VerticalLayout {
 	private Grid<Cita> grid;

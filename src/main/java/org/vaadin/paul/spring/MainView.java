@@ -143,7 +143,7 @@ public class MainView extends AppLayout {
     	
     	else {
     		return new Tab[] {
-      	        createTab("Estadisticas", PruebaEstadistica.class),
+      	        //createTab("Estadisticas", PruebaEstadistica.class),
       	        createTab("Crear Usuario", createUser.class),
       	        createTab("Gestionar Centros", crudCentro.class),
       	        createTab("Gestionar Usuarios", crudUser.class)

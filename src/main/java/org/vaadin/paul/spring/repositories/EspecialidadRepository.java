@@ -11,6 +11,9 @@ import org.springframework.beans.factory.BeanCreationException;
 public interface EspecialidadRepository extends JpaRepository<Especialidad, Integer>{
 	List<Especialidad> findAll();
 	
+	@Query(value = "SELECT * FROM especialidad e WHERE e.id NOT IN (SELECT c.especialidades_id FROM centro_especialidades c WHERE c.centro_id = ?1)" , nativeQuery = true)
+	List<Especialidad> especialidadesQueNoTengaEseCentro(int id); 
+	
 	@Query(value = "SELECT e.* FROM especialidad e WHERE NOT EXISTS ( SELECT c.especialidades_id FROM centro_especialidades c WHERE e.id = c.especialidades_id )" , nativeQuery = true)
 	List<Especialidad> findByEspecialidadSinCentro();
 	

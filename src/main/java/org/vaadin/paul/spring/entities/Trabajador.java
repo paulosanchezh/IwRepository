@@ -3,6 +3,7 @@ package org.vaadin.paul.spring.entities;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class Trabajador{
 	private int id;
 
 	@JoinColumn (name = "idUser")
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	private User user;
 	
 	private LocalTime horaInicio;

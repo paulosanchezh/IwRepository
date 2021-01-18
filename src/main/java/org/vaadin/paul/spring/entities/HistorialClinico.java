@@ -2,6 +2,7 @@ package org.vaadin.paul.spring.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class HistorialClinico {
 	private int id;
 	
 	@JoinColumn(name = "idPaciente")
-	@OneToOne
+	@OneToOne(orphanRemoval = true)
 	private User paciente;
 	
 	@OneToMany(targetEntity=Cita.class)

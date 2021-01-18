@@ -43,13 +43,13 @@ public class createUser extends FormLayout {
 	RolRepository repoRol;
 	UserRepository repoUser;
 	
-	Button saveButton = new Button("Registrarse");
-	TextField apellidos = new TextField("Apellidos");
-    TextField nombre = new TextField("Nombre");
-    TextField dni = new TextField("DNI");
-    TextField direccion = new TextField("Dirección");
-    TextField tlf = new TextField("Teléfono"); 
-    TextField username = new TextField("Nombre de usuario");
+	private Button saveButton = new Button("Registrarse");
+	private TextField apellidos = new TextField("Apellidos");
+    private TextField nombre = new TextField("Nombre");
+    private TextField dni = new TextField("DNI");
+    private TextField direccion = new TextField("Dirección");
+    private TextField tlf = new TextField("Teléfono"); 
+    private TextField username = new TextField("Nombre de usuario");
     
     PasswordField passwordField = new PasswordField("Password");
     PasswordField confirmPasswordField = new PasswordField("Confirm Password");

@@ -52,7 +52,7 @@ import com.vaadin.flow.router.Route;
 
 @Route(value = "informes-pacientes", layout = MainView.class)
 @PageTitle("Informes Pacientes")
-@Secured({"ROLE_SANITARIO", "ROLE_ADMIN"})
+@Secured({"ROLE_SANITARIO"})
 
 public class InformesPacientes extends FormLayout{
 	private Grid<Cita> grid;

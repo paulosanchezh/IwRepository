@@ -134,7 +134,7 @@ public class crudCentro extends VerticalLayout {
 				dialog.setHeight("1000px");
 				
 				gEspecialidad.addColumn(Especialidad::getNombre).setHeader("Especialidad");
-				gEspecialidad.setItems(repoEspecialidad.findByEspecialidadSinCentro());
+				gEspecialidad.setItems(repoEspecialidad.especialidadesQueNoTengaEseCentro(centro.getId()));
 				gEspecialidad.addColumn(new ComponentRenderer<>(especialidad -> {
 					Button addButton = new Button("Añadir"); 
 					addButton.addClickListener(añadir -> { 
@@ -142,7 +142,7 @@ public class crudCentro extends VerticalLayout {
 						lEspecialidades.add(especialidad);
 						centro.setEspecialidad(lEspecialidades);
 						repoCentro.save(centro);
-						gEspecialidad.setItems(repoEspecialidad.findByEspecialidadSinCentro());
+						gEspecialidad.setItems(repoEspecialidad.especialidadesQueNoTengaEseCentro(centro.getId()));
 				 	}); 
 					return addButton;	
 				}));
