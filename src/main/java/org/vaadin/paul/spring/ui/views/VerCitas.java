@@ -155,7 +155,7 @@ public class VerCitas extends VerticalLayout {
 			TimePicker hora = new TimePicker("Hora cita");
 			Trabajador trabajador = listTrabajador(cita);
 			
-			binder.setBean(cita);
+			
 			 
 			if(cita.getConfirmada())
 				modificarbutton.setEnabled(false);
@@ -208,7 +208,7 @@ public class VerCitas extends VerticalLayout {
 				 Button confirmarbutton = new Button("Confirmar");
 				 dialog.add(fecha, hora, confirmarbutton, closebutton);
 				 
-				 
+				 binder.setBean(cita);
 				 confirmarbutton.addClickListener(e1 ->{
 					 if (binder.validate().isOk()) {
 						 Notification.show("La cita ha sido modificada");

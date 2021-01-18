@@ -3,8 +3,10 @@ package org.vaadin.paul.spring.ui.views;
 import java.time.LocalDate;
 
 import org.vaadin.paul.spring.entities.Cita;
+import org.vaadin.paul.spring.entities.HistorialClinico;
 import org.vaadin.paul.spring.entities.User;
 import org.vaadin.paul.spring.repositories.CitaRepository;
+import org.vaadin.paul.spring.repositories.HistorialClinicoRepository;
 import org.vaadin.paul.spring.repositories.SanitarioRepository;
 import org.vaadin.paul.spring.repositories.TrabajadorRepository;
 
@@ -29,20 +31,27 @@ public class CitasPendientes extends VerticalLayout {
 	private final CitaRepository repo;
 	private final SanitarioRepository reposanitario;
 	private final TrabajadorRepository repotrabajador;
+	private final HistorialClinicoRepository repoHistorial;
 	final Grid<Cita> grid;
+	private HistorialClinico historial;
 
-	public CitasPendientes(CitaRepository repo, SanitarioRepository repouser, TrabajadorRepository repotrabajador) {
+	public CitasPendientes(CitaRepository repo, SanitarioRepository repouser, TrabajadorRepository repotrabajador,  HistorialClinicoRepository repoHistorial) {
 		this.repo = repo;
 		this.reposanitario = repouser;
 		this.repotrabajador = repotrabajador;
+		this.repoHistorial = repoHistorial;
 		this.grid = new Grid<>();
+		
 		grid.addColumn(Cita::getNombreyApellidospaciente, "Nombres y Apellidos").setHeader("Nombre y apellidos");
 		grid.addColumn(Cita::getHora, "Hora").setHeader("Hora");
 		grid.addColumn(new ComponentRenderer<>(cita -> { 
 			Button confirmbutton = new Button("Confirmar"); 
 			confirmbutton.addClickListener(event -> { 
+				historial= listHistorial(cita);
+				
 				cita.setConfirmada(true);
 				repo.save(cita);
+				historial.getCitas().add(cita);
 				listCustomers();
 			}); 
 			return confirmbutton;
@@ -55,5 +64,9 @@ public class CitasPendientes extends VerticalLayout {
 		LocalDate hoy = LocalDate.now();
 		User u = (User) SecurityUtils.getAuthenticatedUser();
 		grid.setItems(repo.findByFechaAndSanitarioAndConfirmada(hoy, reposanitario.findByTrabajador(repotrabajador.findByUser(u)), false));
+	}
+	
+	private HistorialClinico listHistorial(Cita cita) {
+		return repoHistorial.findByPaciente(cita.getPaciente());
 	}
 }

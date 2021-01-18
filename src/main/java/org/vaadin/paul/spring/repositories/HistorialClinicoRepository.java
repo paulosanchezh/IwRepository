@@ -10,6 +10,7 @@ import org.vaadin.paul.spring.entities.User;
 
 public interface HistorialClinicoRepository extends JpaRepository<HistorialClinico, Integer>{
 	
-	List<Informe> findByPaciente(User paciente);
+	HistorialClinico findByPaciente(User paciente);
+	
 
 }

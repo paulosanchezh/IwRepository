@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 public class HistorialClinico {
 	
@@ -24,6 +27,7 @@ public class HistorialClinico {
 	@OneToOne(orphanRemoval = true)
 	private User paciente;
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(targetEntity=Cita.class)
 	private List<Cita> citas;
 	
@@ -34,4 +38,8 @@ public class HistorialClinico {
 	private String InformacionImportante;
 	
 	public HistorialClinico () {}
+	
+	public List<Cita> getCitas(){
+		return citas;
+	}
 }

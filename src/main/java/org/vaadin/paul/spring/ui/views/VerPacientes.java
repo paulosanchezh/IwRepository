@@ -134,9 +134,13 @@ public class VerPacientes extends VerticalLayout {
 				Fecha2Field.setSizeFull();
 				Fecha2Field.setPlaceholder("Filter");
 				
+				
+				
 				grid2.addColumn(new ComponentRenderer<>(cita3 -> { 
+					Button confirmbutton = new Button(" Ver Informe");
+					if (cita3.getInforme() != null) {		
 					 Informe informe = cita3.getInforme();
-					 Button confirmbutton = new Button(" Ver Informe");
+					 
 					 confirmbutton.addClickListener(event2 -> { 
 						 Accordion Datos_informe = new Accordion();
 						 
@@ -159,7 +163,12 @@ public class VerPacientes extends VerticalLayout {
 						 dialog2.setHeight("1000px");
 						 dialog2.open();
 				 	}); 
+					}
+					else {
+						confirmbutton.setEnabled(false);
+					}
 					 return confirmbutton;
+					 
 				 }));
 				
 				
