@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.security.access.annotation.Secured;
@@ -69,6 +70,8 @@ public class solicitarCita extends VerticalLayout{
 			LocalidadRepository repoLocalidad, CentroRepository repoCentro, SanitarioRepository repoSanitario,
 			TrabajadorRepository repoTrabajador, CitaRepository repoCita) {
 		
+		cbUsuario.setLabel("Medico");
+		cbEspecialidad.setLabel("Especialidad");
 		cbProvincia.setEnabled(false);
 		cbLocalidad.setEnabled(false);
 		cbCentro.setEnabled(false);
@@ -120,16 +123,25 @@ public class solicitarCita extends VerticalLayout{
   		    	cbEspecialidad.setItemLabelGenerator(Especialidad::getNombre);
   		    	cbEspecialidad.setEnabled(true);
   		    	cbEspecialidad.addValueChangeListener(event1 ->{
-  		    		List<Trabajador> lTrabajadores = event.getValue().getTrabajadores();
-  		    		List<User> lUser = new ArrayList<User>();
+  		    		
+  		    		List<Trabajador> lTrabajador = event.getValue().getTrabajadores();
+  		    		
   		    		Sanitario sanitario;
-  		    		for(Trabajador trabajador : lTrabajadores) {
-  		    			sanitario = repoSanitario.findByTrabajador(trabajador);
-  		    			if (sanitario.getEspecialidad().getNombre().equals(event1.getValue().getNombre())) {
-  		    				lUser.add(trabajador.getUser());
-  		    			}	
-  		    		}
-  		    		cbUsuario.setLabel("Medico");
+  		    		Iterator<Trabajador> itr = lTrabajador.iterator();
+  		    		List<User> lUser = new ArrayList<User>();
+  		    		int i=0;
+					while (itr.hasNext()) {
+						i++;
+						System.out.println("I: " +i);
+						Trabajador t = itr.next();
+						System.out.println("Trbajador: " + t.getNombre());
+						sanitario = repoSanitario.findByTrabajadorId(t.getId());					
+						sanitario.getEspecialidad().getNombre();
+						if (sanitario.getEspecialidad().getNombre().equals(event1.getValue().getNombre())) {
+		    				lUser.add(t.getUser());
+		    			}
+						System.out.println("sali");
+					}
   		    		cbUsuario.setItems(lUser);
   		    		cbUsuario.setItemLabelGenerator(User::getNombre);
   		    		cbUsuario.setEnabled(true);
@@ -189,7 +201,8 @@ public class solicitarCita extends VerticalLayout{
        add(hora);
        
        
-       
+       add(cbEspecialidad);
+       add(cbUsuario);
        cita.setPaciente((User) SecurityUtils.getAuthenticatedUser());
        cita.setConfirmada(false);
        
@@ -203,7 +216,5 @@ public class solicitarCita extends VerticalLayout{
        	}
 		});
        add(saveButton);
-       
-       
 	}
 }

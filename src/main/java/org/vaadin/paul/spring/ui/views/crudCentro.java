@@ -38,7 +38,6 @@ import org.vaadin.paul.spring.repositories.UserRepository;
 @PageTitle("Gestión de Centros")
 @Secured({"ROLE_ADMIN"})
 public class crudCentro extends VerticalLayout {
-
 	
 	private CentroRepository repoCentro;
 	private TrabajadorRepository repoTrabajador;
@@ -213,6 +212,7 @@ gCentro.addColumn(new ComponentRenderer<>(centro3 -> {
 				
 				bCentro.forField(nombre)
 	        		.asRequired("Nombre no puede estar vacío")
+	        		.withValidator(nom -> repoCentro.findByName(nom, centro3.getId()) == null, "Este DNI ya existe, compruebe que ha sido introducido correctamente")
 	        		.bind(Centro::getNombre, Centro::setNombre);
 	        
 				bCentro.forField(telefono)

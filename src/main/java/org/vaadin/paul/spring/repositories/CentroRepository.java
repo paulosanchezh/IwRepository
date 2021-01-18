@@ -24,6 +24,9 @@ public interface CentroRepository extends JpaRepository<Centro, Integer>{
 	Centro findBynombre(String nombre);
 	List<Centro> findByTelefono(String telefono);
 	
+	@Query(value = "SELECT * FROM centro WHERE nombre = ?1 AND NOT id = ?2 ", nativeQuery = true)
+	Centro findByName(String nombre, int id);
+	
 	@Query(value = "SELECT * FROM centro, centro_trabajadores WHERE centro.id = centro_trabajadores.centro_id AND centro_trabajadores.trabajadores_id = ?1", nativeQuery = true)
 	Centro findByTrabajadores(int id_trabajador);
 	
